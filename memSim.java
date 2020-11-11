@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
   This is the main file for the memSim project.
 
@@ -7,6 +8,10 @@
  */
 
 class memSim{
+    HDD hardDrive = null;
+    RAM[] rams;
+    ArrayList processes = new ArrayList<process>();
+    CPU cpu;
     public static void main(String args[]){
 	
     }
