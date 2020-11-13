@@ -12,7 +12,7 @@ class CPU{
     //THe size of the first cache
     int cache1Size;
     public CPU(int numCores, int cacheSize){
-     cores = 0;
+     cores = numCores;
      cache1Size = cacheSize;
     }
     
