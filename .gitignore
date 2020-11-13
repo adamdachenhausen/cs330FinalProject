@@ -24,3 +24,10 @@ hs_err_pid*
 
 # emacs files
 *.java~
+Makefile~
+
+# LATEX files specific to this project
+paper.aux
+paper.bbl
+paper.blg
+paper.dvi
