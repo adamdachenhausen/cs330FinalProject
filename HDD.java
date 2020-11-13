@@ -19,7 +19,7 @@ class HDD{
        @param size, the size in bytes of this
        @param numPlatters, the number of single sided platters that this contains.
      **/
-    public void initializeHDD(int size, int numPlatters){
+    public HDD(int size, int numPlatters){
 	this.size=size;
 	this.numPlatters=numPlatters;
 
