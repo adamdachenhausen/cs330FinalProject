@@ -11,4 +11,11 @@ class RAM{
         this.size = size;
 	data = new byte[size];
     }
+    /**
+       
+     **/
+    //@Override
+    public void run(){
+	
+    }
 }
