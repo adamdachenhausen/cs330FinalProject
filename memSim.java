@@ -10,6 +10,9 @@ import java.util.Scanner;
  */
 
 class memSim{
+    //A flag to tell our components if the system is done running
+    public static boolean done;
+    
     //An array to hold all the hard drives in the system
     HDD[] hardDrives;
 
@@ -26,16 +29,21 @@ class memSim{
      */
     public static void main(String args[]){
 	//Here we will prompt the user for data
-	memSim sim = promptUser();
-
+	memSim sim = initialUserPrompt();
 	
+	while(!done){
+	   sim.promptTree();
+	}
     }
     /**
        A constructor for the memSim obect
      **/
     public memSim(int numHDD, int hDDSize, int numHDDPlatters, int numRam, int rAMSize, int cacheSize){
-	//Let's first initialize the number of harddrives, and their size
-	hardDrives = new hardDrives[numHDD];
+	//First, we need to allow everything to know that we are starting up, aka not done
+	done = false;
+	
+	//Let's initialize the number of harddrives, and their size
+	hardDrives = new HDD[numHDD];
 
 	for(int i = 0; i < numHDD; i++){
 	    hardDrives[i] = new HDD(hDDSize, numHDDPlatters);
@@ -58,7 +66,7 @@ class memSim{
 
        @return a memSim object specified by the user's requests
      **/
-    private static memSim promptUser(){
+    private static memSim initialUserPrompt(){
 	Scanner scnr = new Scanner(System.in);
 
 	//Let's ask the user for system parameters
@@ -86,9 +94,46 @@ class memSim{
 	input = scnr.nextLine();
 	int cacheSize = Integer.parseInt(input);
 
-	//And finally initialize the systemx
-	memSim sim = new memSim(numHDD,hDDSize,numPlatters,numRam,rAMSize,cacheSize);
+	//And finally initialize the system
+	return new memSim(numHDD,hDDSize,numPlatters,numRAM,rAMSize,cacheSize);
+    }
+
+    /**
+       Gives the user a list of options to choose their next move with the simulator,
+       and acts accordingly.
+
+       
+     **/
+    private void promptTree(){
+	//First print the user's options
+	System.out.println("What would you like to do next?");
+	System.out.println("1.\tMove Data");
+	System.out.println("2.\tRead Data");
+	System.out.println("3.\tWrite Data");
+	System.out.println("4.\tExit");
+	System.out.print("Please enter the number of your selection: ");
 	
-	return sim;
+	//Then wait for their response
+	Scanner scnr = new Scanner(System.in);
+	int input = Integer.parseInt(scnr.nextLine());
+
+	if(input == 1){
+
+	}
+	else if(input == 2){
+
+	}
+	else if(input == 3){
+
+	}
+	else if(input == 4){
+	    done = true;
+	}
+	else{
+	    //We didn't understand the instruction, so let's just tell the user, and we will return
+	    //Then our parent will just recall us.
+	    System.out.println("Your choice was not understood. Please only enter a number");
+	}
+	return;
     }
 }
