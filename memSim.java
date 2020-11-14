@@ -110,13 +110,16 @@ class memSim{
 	System.out.println("1.\tMove Data");
 	System.out.println("2.\tRead Data");
 	System.out.println("3.\tWrite Data");
-	System.out.println("4.\tExit");
+	System.out.println("4.\tHelp");
+	System.out.println("5.\tExit");
 	System.out.print("Please enter the number of your selection: ");
 	
 	//Then wait for their response
 	Scanner scnr = new Scanner(System.in);
-	int input = Integer.parseInt(scnr.nextLine());
+	String userInput = scnr.nextLine();
+	int input = Integer.parseInt(userInput);
 
+	//Process the response
 	if(input == 1){
 
 	}
@@ -127,13 +130,57 @@ class memSim{
 
 	}
 	else if(input == 4){
+	    displayHelp("");
+	}
+	else if(input == 5){
 	    done = true;
 	}
 	else{
 	    //We didn't understand the instruction, so let's just tell the user, and we will return
 	    //Then our parent will just recall us.
 	    System.out.println("Your choice was not understood. Please only enter a number");
+	    displayHelp("");
 	}
+	return;
+    }
+    /**
+       A helper method to display a user help menu
+     **/
+    private static void displayHelp(String input){
+	System.out.println();
+	System.out.println();
+	System.out.println("Java Based Memory Latency Simulator");
+	System.out.println("Developed by Pat Baumgardner, Adam Dachenhausen, Shah Syed");
+	System.out.println("Supported commands: ");
+	System.out.println("move");
+	System.out.println("read");
+	System.out.println("write");
+	System.out.println("help");
+	System.out.println("exit");
+	System.out.println("For help with a specific command type 'help [command]'");
+	if(input.equalsIgnoreCase("")){
+	    return;
+	    }
+	else if(input.equalsIgnoreCase("move")){
+	    System.out.println("Moves data from one specified location to another");
+	}
+	else if(input.equalsIgnoreCase("read")){
+	    System.out.println("Reads data from specifed location");
+	}
+	else if(input.equalsIgnoreCase("write")){
+	    System.out.println("Writes data to specified location");
+	}
+	else if(input.equalsIgnoreCase("help")){
+	    System.out.println("Displays the help message");
+	}
+	else if(input.equalsIgnoreCase("exit")){
+	    System.out.println("Exits the simulator");
+	}
+	else{
+	    System.out.println("Command not found");
+	}
+	System.out.println();
+	System.out.println();
 	return;
     }
 }
