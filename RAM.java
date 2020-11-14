@@ -10,6 +10,7 @@ class RAM{
     public RAM(int size){
         this.size = size;
 	data = new byte[size];
+	this.run();
     }
     /**
        

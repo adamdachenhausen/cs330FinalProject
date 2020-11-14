@@ -29,6 +29,7 @@ class HDD{
 	for(int i=0; i<numPlatters; i++){
 	    platters[i] = new platter(size/numPlatters);
 	}
+	this.run();
     }
     /**
        

@@ -14,6 +14,7 @@ class CPU{
     public CPU(int numCores, int cacheSize){
      cores = numCores;
      cache1Size = cacheSize;
+     this.run();
     }
 
     /**
