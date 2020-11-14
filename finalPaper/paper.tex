@@ -1,9 +1,3 @@
-% 
-% Sample latex source for a project report
-%
-% This is intended as an introduction to latex, but includes some
-% advice about what you might want for the content of your paper
-%
 % Jim Teresco
 % Williams College, Mount Holyoke College, Siena College, The College
 % of Saint Rose
@@ -13,12 +7,6 @@
 %
 % Modified by: Pat Baumgardner, Adam Dachenhausen, Shah Syed
 %
-%
-% First, as you may have guessed, % is the way to define a latex 
-% comment
-%
-% The first line tells latex you want for a default font size and that
-% you want to create an ``article''
 \documentclass[12pt]{article}
 % extra packages to bring in
 \usepackage{latexsym}
@@ -143,27 +131,19 @@ for more.
 \subsection{Compiling}
 \begin{itemize}
 
-\item \section*{Command Line}
+\item \textbf{Command Line}
   The source code includes two ways to compile the simulator.
   \begin{itemize}
-  \item
-    \section*{Make}
-    The simulator source code includes a Makefile, so if Make
-    is installed, the command \begin{verbatim} make \end{verbatim}
-    will compile the simulator.
-    
-  \item
-    \section*{Default}
-    In the absence of Make, the default way to compile the simulator
-    is to run
-\begin{verbatim}
-    javac *.java
-\end{verbatim}
-which will compile all of the Java files so they could be run.
-    
+  \item \textbf{Make}
+  The simulator source code includes a Makefile, so if Make is installed, the command
+  \begin{verbatim}make\end{verbatim}
+  will compile the simulator.
+  \item \textbf{Default}
+  In the absence of Make, the default way to compile the simulator is to run  
+  \begin{verbatim}javac *.java\end{verbatim}
+  which will compile all of the Java files so they could be run.
   \end{itemize}
-  
-\item \section*{Using an IDE}
+\item \textbf{Using an IDE}
   Given the multitude of IDEs that are available, please see your
   specific IDE's manual for how to compile and run the simulator.
   
@@ -175,16 +155,47 @@ project is protected under the MIT License, so proceed at your own risk.
 
 \subsection{Running the Simulator}
 \begin{itemize}
-\item Command Line
+\item \textbf{Command Line}
   Either way that the simulator was compiled, the command
 \begin{verbatim}
   java memSim
 \end{verbatim}
   will start the simulator
-\item IDE
+\item \textbf{IDE}
   Given the multitude of IDEs that are available, please see your
   specific IDE's manual for how to compile and run the simulator.
 \end{itemize}
+Upon running the simulator, you will be prompted for a variety of 
+simulator parameters. Each of these is crucial, and cannot be left blank.
+\begin{verbatim}
+How many Hard Drives would you like?
+1
+How many platters should each hard drive have?
+4
+And how big (in bytes) should each one be?
+1024
+How many RAM sticks would you like?
+2
+And how big (in bytes) should each one be?
+128
+Finally, how big (in bytes) would you like your CPU cache to be?
+32
+\end{verbatim}
+After setting up the simulator, the components will each start up, and
+you will be prompted to choose an option from the menu. You can choose to either
+select based on the menu number, or the name.
+\begin{verbatim}
+Java Based Memory Latency Simulator
+Developed by Pat Baumgardner, Adam Dachenhausen, Shah Syed
+Supported commands:
+move
+read
+write
+help
+exit
+For help with a specific command type 'help [command]'
+\end{verbatim}
+
 
 \section{Explanation of Statistics Gathered}
 \label{sec:expstats}
