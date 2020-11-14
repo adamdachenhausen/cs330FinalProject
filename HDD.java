@@ -30,4 +30,16 @@ class HDD{
 	    platters[i] = new platter(size/numPlatters);
 	}
     }
+    /**
+       
+     **/
+    @Override
+    public void run(){
+	//First we wait a bit to emulate the hard drive getting up to speed
+
+	//Then we wait for instructions
+	while(){
+
+	}
+    }
 }

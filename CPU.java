@@ -15,5 +15,12 @@ class CPU{
      cores = numCores;
      cache1Size = cacheSize;
     }
-    
+
+    /**
+
+     **/
+    @Override
+    public void run(){
+	
+    }
 }
