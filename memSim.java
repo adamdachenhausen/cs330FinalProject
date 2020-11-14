@@ -114,25 +114,26 @@ class memSim{
 	System.out.println("5.\tExit");
 	System.out.print("Please enter the number of your selection: ");
 	
-	//Then wait for their response
+	//Then wait for their response and tokenize it
 	Scanner scnr = new Scanner(System.in);
-	String userInput = scnr.nextLine();
-	int input = Integer.parseInt(userInput);
-
+	String input = scnr.nextLine();
+	String[] tokens = input.split(" ");
+	String keystone = tokens[0];
+	
 	//Process the response
-	if(input == 1){
+	if(keystone.equalsIgnoreCase("1")|keystone.equalsIgnoreCase("move")){
 
 	}
-	else if(input == 2){
+	else if(keystone.equalsIgnoreCase("2")|keystone.equalsIgnoreCase("read")){
 
 	}
-	else if(input == 3){
+	else if(keystone.equalsIgnoreCase("3")|keystone.equalsIgnoreCase("write")){
 
 	}
-	else if(input == 4){
-	    displayHelp("");
+	else if(keystone.equalsIgnoreCase("4")|keystone.equalsIgnoreCase("help")){
+	    displayHelp(tokens[1]);
 	}
-	else if(input == 5){
+	else if(keystone.equalsIgnoreCase("5")|keystone.equalsIgnoreCase("exit")){
 	    done = true;
 	}
 	else{
@@ -158,7 +159,7 @@ class memSim{
 	System.out.println("help");
 	System.out.println("exit");
 	System.out.println("For help with a specific command type 'help [command]'");
-	if(input.equalsIgnoreCase("")){
+	if(input == null){
 	    return;
 	    }
 	else if(input.equalsIgnoreCase("move")){
