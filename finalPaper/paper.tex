@@ -26,7 +26,7 @@
 \usepackage{epsfig}        % wrapper for graphicx package
 \usepackage{times}
 \usepackage{url}
-\usepackage{hyperef}
+\usepackage{hyperref}
 % set some margins, these can be defined as in, cm, pt
 \setlength{\topmargin}{-0.5in}
 \setlength{\textheight}{9in}
@@ -128,9 +128,63 @@ Also describe components and terms as you go.
 \section{Building and Running the Simulator}
 \label{sec:build}
 
+\subsection{Java}
 The simulator is written in Java, and therefore, you will need to have
-Java installed to run it. See \href{https://www.java.com/en/download/}
-{Java Download} for more.
+Java installed to run it. See \url{https://www.java.com/en/download/}
+ for more.
+
+\subsection{Aquiring Source Code}
+To download the simulator code, go to \url{osfinal.dachenhausen.org} 
+or
+\url{https://github.com/adamdachenhausen/cs330FinalProject} 
+and clone the repository. See \url{https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository}
+for more.
+
+\subsection{Compiling}
+\begin{itemize}
+
+\item \section*{Command Line}
+  The source code includes two ways to compile the simulator.
+  \begin{itemize}
+  \item
+    \section*{Make}
+    The simulator source code includes a Makefile, so if Make
+    is installed, the command \begin{verbatim} make \end{verbatim}
+    will compile the simulator.
+    
+  \item
+    \section*{Default}
+    In the absence of Make, the default way to compile the simulator
+    is to run
+\begin{verbatim}
+    javac *.java
+\end{verbatim}
+which will compile all of the Java files so they could be run.
+    
+  \end{itemize}
+  
+\item \section*{Using an IDE}
+  Given the multitude of IDEs that are available, please see your
+  specific IDE's manual for how to compile and run the simulator.
+  
+\end{itemize}
+
+\subsection{Licensing}
+Before running the simulator, we would like to remind you that this
+project is protected under the MIT License, so proceed at your own risk.
+
+\subsection{Running the Simulator}
+\begin{itemize}
+\item Command Line
+  Either way that the simulator was compiled, the command
+\begin{verbatim}
+  java memSim
+\end{verbatim}
+  will start the simulator
+\item IDE
+  Given the multitude of IDEs that are available, please see your
+  specific IDE's manual for how to compile and run the simulator.
+\end{itemize}
 
 \section{Explanation of Statistics Gathered}
 \label{sec:expstats}
@@ -144,7 +198,7 @@ Also describe components and terms as you go.
 Insert all the data gathered by the simulator and from sources here.
 Explain any terms as needed (only if not already). 
 
-\section{disc}
+\section{Disc}
 \label{sec:disc}
 
 Explain any discrepencies found here.
