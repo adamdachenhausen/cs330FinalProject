@@ -9,16 +9,15 @@ class RAM extends Thread{
     
     public RAM(int size){
         this.size = size;
-	data = new byte[size];
-	this.run();
+    data = new byte[size];
     }
     /**
        
      **/
     @Override
     public void run(){
-	while(!memSim.done){
-
-	}
+        while(!memSim.done){
+            //System.out.print("In Ram");
+    }
     }
 }

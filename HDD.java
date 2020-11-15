@@ -40,7 +40,7 @@ class HDD extends Thread{
     
     //Then we wait for instructions
     while(!memSim.done){
-        
+        //System.out.println("In HDD");
         
     }
     }

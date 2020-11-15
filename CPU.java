@@ -21,8 +21,8 @@ class CPU extends Thread{
      **/
     @Override
     public void run(){
-	while(!memSim.done){
-
-	}
+        while(!memSim.done){
+            
+    }
     }
 }
