@@ -47,6 +47,7 @@ class memSim extends Thread{
 
 	for(int i = 0; i < numHDD; i++){
 	    hardDrives[i] = new HDD(hDDSize, numHDDPlatters);
+	    hardDrives[i].start();
 	}
 
 	//Now let's initialize our RAM
@@ -54,10 +55,12 @@ class memSim extends Thread{
 
 	for(int i = 0; i < numRam; i++){
 	    rams[i] = new RAM(rAMSize);
+	    rams[i].start();
 	}
 
 	//Now let's initialize our cacheSize
 	cpu = new CPU(1, cacheSize);
+	cpu.start();
     }
     
     /**
