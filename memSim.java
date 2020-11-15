@@ -149,29 +149,61 @@ class memSim extends Thread{
 	    int userSubSelect = scnr.nextInt();
 	    
 	    if(userSubSelect == 1){
-		System.out.println("Please enter a number from 1 - " + hardDrives.length);
+		System.out.println("Please choose a drive from 1 - " + hardDrives.length);
 		System.out.print("Please enter the number of your selection: ");
-		userSubSelect = 2; 
+		int hddSelect = scnr.nextInt();
+
+		
 	    }
 	    else if(userSubSelect == 2){
-		System.out.println("Please enter a number from 1 - " + rams.length);
+		System.out.println("Please choose a stick of ram from 1 - " + rams.length);
 		System.out.print("Please enter the number of your selection: ");
+		int ramSelect = scnr.nextInt();
+
+		
 	    }
 	    else if(userSubSelect == 3){
-
+		//Now we are going to ask the user where they want to write the data to
+		System.out.println("Where would you like to write the data from?");
+		System.out.println("1.\tHard Drive");
+		System.out.println("2.\tRAM");
+		System.out.println("3.\tCPU Cache");
+		System.out.print("Please enter the number of your selection: ");
+	    
+		int userSubSelect = scnr.nextInt();
+		
+		if(userSubSelect == 1){
+		    System.out.println("Please choose a drive from 1 - " + hardDrives.length);
+		    System.out.print("Please enter the number of your selection: ");
+		    int hddSelect = scnr.nextInt();
+		    
+		    
+		}
+		else if(userSubSelect == 2){
+		    System.out.println("Please choose a stick of ram from 1 - " + rams.length);
+		    System.out.print("Please enter the number of your selection: ");
+		    int ramSelect = scnr.nextInt();
+		    
+		    
+		}
+		else if(userSubSelect == 3){    
+		    start = System.currentTimeMillis();
+		    
+		    //cpu.read();
+		    
+		    //Then we can report the statistics
+		    end = System.currentTimeMillis();
+		    
+		    diff = end - start;
+		    System.out.println("The time it took to do this read operation of the CPU Cache was: " + diff + " milliseconds");
+		    
+		    
+		    
+		}
+		else{
+		    System.out.println("Your choice was not understood. Please only enter a number in the valid range");
+		}
 	    }
-	    else{
-		System.out.println("Your choice was not understood. Please only enter a number in the valid range");
-	    }
-	    
-	    
-	    start = System.currentTimeMillis();
-	    
-	    //Then we can report the statistics
-	    end = System.currentTimeMillis();
-
-	    diff = end - start;
-	    System.out.println("The time it took to do this read operation was: " + diff + " milliseconds");
 	}
 	else if(input == 3){
 	    
@@ -198,7 +230,9 @@ class memSim extends Thread{
 	    System.out.println("Your choice was not understood. Please only enter a number in the valid range");
 	    displayHelp("");
 	}
-	return;
+	
+	    return;
+	}
     }
     /**
        A helper method to display a user help menu
