@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 /*
   This is the main file for the memSim project.
 
@@ -9,7 +8,7 @@ import java.util.Scanner;
   Authors: Pat Baumgardner, Adam Dachenhausen, Shah Syed
  */
 
-class memSim{
+class memSim extends Thread{
     //A flag to tell our components if the system is done running
     public static boolean done;
     
@@ -21,7 +20,7 @@ class memSim{
     
     ArrayList processes = new ArrayList<process>();
     CPU cpu;
-
+    
     /**
        Starts the simulation of our memory management.
        First prompts the user for data
@@ -35,8 +34,9 @@ class memSim{
 	   sim.promptTree();
 	}
     }
+    
     /**
-       A constructor for the memSim obect
+       A constructor for the memSim object
      **/
     public memSim(int numHDD, int hDDSize, int numHDDPlatters, int numRam, int rAMSize, int cacheSize){
 	//First, we need to allow everything to know that we are starting up, aka not done

@@ -1,3 +1,4 @@
+
 /*
   This is a simulation of a Hard Drive Disk
  */
@@ -20,27 +21,28 @@ class HDD implements Runnable{
        @param numPlatters, the number of single sided platters that this contains.
      **/
     public HDD(int size, int numPlatters){
-	this.size=size;
-	this.numPlatters=numPlatters;
+    this.size=size;
+    this.numPlatters=numPlatters;
 
-	// Now we are going to make the virtual hard drive
-	platters = new platter[numPlatters];
-	
-	for(int i=0; i<numPlatters; i++){
-	    platters[i] = new platter(size/numPlatters);
-	}
-	this.run();
+    // Now we are going to make the virtual hard drive
+    platters = new platter[numPlatters];
+    
+    for(int i=0; i<numPlatters; i++){
+        platters[i] = new platter(size/numPlatters);
+    }
+    this.run();
     }
     /**
        
      **/
     @Override
     public void run(){
-	//First we wait a bit to emulate the hard drive getting up to speed
-	
-	//Then we wait for instructions
-	while(!memSim.done){
-
-	}
+        //First we wait a bit to emulate the hard drive getting up to speed
+    
+    //Then we wait for instructions
+    while(!memSim.done){
+        System.out.println("Hello");     
+        
+    }
     }
 }
