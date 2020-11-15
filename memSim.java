@@ -74,34 +74,44 @@ class memSim extends Thread{
 
 	//Let's ask the user for system parameters
 	System.out.println("How many Hard Drives would you like?");
-	String input = scnr.nextLine();
-	int numHDD = Integer.parseInt(input);
+	int numHDD = getCheckedIntVal(scnr);
 
 	System.out.println("How many platters should each hard drive have?");
-	input = scnr.nextLine();
-	int numPlatters = Integer.parseInt(input);
+	int numPlatters = getCheckedIntVal(scnr);
 
 	System.out.println("And how big (in bytes) should each one be?");
-	input = scnr.nextLine();
-	int hDDSize = Integer.parseInt(input);
+	int hDDSize = getCheckedIntVal(scnr);
 
 	System.out.println("How many RAM sticks would you like?");
-	input = scnr.nextLine();
-	int numRAM = Integer.parseInt(input);
+	int numRAM = getCheckedIntVal(scnr);
 
 	System.out.println("And how big (in bytes) should each one be?");
-	input = scnr.nextLine();
-	int rAMSize = Integer.parseInt(input);
+	int rAMSize = getCheckedIntVal(scnr);
 
 	System.out.println("Finally, how big (in bytes) would you like your CPU cache to be?");
-	input = scnr.nextLine();
-	int cacheSize = Integer.parseInt(input);
+	int cacheSize = getCheckedIntVal(scnr);
 
 	//And finally initialize the system
 	return new memSim(numHDD,hDDSize,numPlatters,numRAM,rAMSize,cacheSize);
     }
 
-    /**
+    //Method to get int value
+	private static int getCheckedIntVal(Scanner scnr) {
+
+    	Integer ret = null;
+    	do {
+			String input = scnr.nextLine();
+			try {
+				ret = Integer.parseInt(input);
+			} catch (Exception e) {
+				System.out.println("Only numbers are allowed! Please provide a valid input:");
+			}
+		}while(ret == null);
+
+    	return ret;
+	}
+
+	/**
        Gives the user a list of options to choose their next move with the simulator,
        and acts accordingly.
 
@@ -122,30 +132,31 @@ class memSim extends Thread{
 	String input = scnr.nextLine();
 	String[] tokens = input.split(" ");
 	String keystone = tokens[0];
-	
-	//Process the response
-	if(keystone.equalsIgnoreCase("1")|keystone.equalsIgnoreCase("move")){
 
-	}
-	else if(keystone.equalsIgnoreCase("2")|keystone.equalsIgnoreCase("read")){
+		try {
+			int inputInt = Integer.parseInt(input);
+			if(inputInt < 1 || inputInt > 5){
+				throw new Exception();
+			}
+			//Process the response
+			if (keystone.equalsIgnoreCase("1") | keystone.equalsIgnoreCase("move")) {
 
-	}
-	else if(keystone.equalsIgnoreCase("3")|keystone.equalsIgnoreCase("write")){
+			} else if (keystone.equalsIgnoreCase("2") | keystone.equalsIgnoreCase("read")) {
 
-	}
-	else if(keystone.equalsIgnoreCase("4")|keystone.equalsIgnoreCase("help")){
-	    displayHelp(tokens[1]);
-	}
-	else if(keystone.equalsIgnoreCase("5")|keystone.equalsIgnoreCase("exit")){
-	    done = true;
-	}
-	else{
-	    //We didn't understand the instruction, so let's just tell the user, and we will return
-	    //Then our parent will just recall us.
-	    System.out.println("Your choice was not understood. Please only enter a number");
-	    displayHelp("");
-	}
-	return;
+			} else if (keystone.equalsIgnoreCase("3") | keystone.equalsIgnoreCase("write")) {
+
+			} else if (keystone.equalsIgnoreCase("4") | keystone.equalsIgnoreCase("help")) {
+				displayHelp(tokens[1]);
+			} else if (keystone.equalsIgnoreCase("5") | keystone.equalsIgnoreCase("exit")) {
+				done = true;
+			}
+		} catch (Exception e) {
+			//We didn't understand the instruction, so let's just tell the user, and we will return
+			//Then our parent will just recall us.
+			System.out.println("\nYour choice was not understood. Please only enter a number");
+			displayHelp("");
+		}
+		return;
     }
     /**
        A helper method to display a user help menu
