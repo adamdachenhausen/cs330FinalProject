@@ -1,7 +1,7 @@
 /*
   This simulator of a Central Processing Unit with Cache
 */
-class CPU implements Runnable{
+class CPU extends Thread{
 
     //The number of cores in this
     int cores;
@@ -14,7 +14,6 @@ class CPU implements Runnable{
     public CPU(int numCores, int cacheSize){
      cores = numCores;
      cache1Size = cacheSize;
-     this.run();
     }
 
     /**
@@ -22,6 +21,8 @@ class CPU implements Runnable{
      **/
     @Override
     public void run(){
-	System.out.println("Hello");
+	while(!memSim.done){
+
+	}
     }
 }

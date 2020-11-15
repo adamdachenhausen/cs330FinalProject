@@ -2,7 +2,7 @@
 /*
   This is a simulation of a Hard Drive Disk
  */
-class HDD implements Runnable{
+class HDD extends Thread{
     //The overall size of this
     int size;
 
@@ -30,7 +30,6 @@ class HDD implements Runnable{
     for(int i=0; i<numPlatters; i++){
         platters[i] = new platter(size/numPlatters);
     }
-    this.run();
     }
     /**
        
@@ -41,7 +40,7 @@ class HDD implements Runnable{
     
     //Then we wait for instructions
     while(!memSim.done){
-        System.out.println("Hello");     
+        
         
     }
     }

@@ -1,7 +1,7 @@
 /*
   This is a simulation of Main System Memory aka Random Access Memory
  */
-class RAM implements Runnable{
+class RAM extends Thread{
     //The size in bytes of this
     int size;
     //The array to hold our data
@@ -17,6 +17,8 @@ class RAM implements Runnable{
      **/
     @Override
     public void run(){
-	System.out.println("Hello");
+	while(!memSim.done){
+
+	}
     }
 }
