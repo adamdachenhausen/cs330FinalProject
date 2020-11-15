@@ -119,30 +119,83 @@ class memSim extends Thread{
 	
 	//Then wait for their response and tokenize it
 	Scanner scnr = new Scanner(System.in);
-	String input = scnr.nextLine();
-	String[] tokens = input.split(" ");
-	String keystone = tokens[0];
+	int input = scnr.nextInt();
+
+	//Used for determining how long a command took to run
+	long start;
+	long end;
+	long diff;
 	
 	//Process the response
-	if(keystone.equalsIgnoreCase("1")|keystone.equalsIgnoreCase("move")){
+	if(input == 1){
+	    start = System.currentTimeMillis();
+	    //Here we are going to process where the user wants to move the data from and to
 
-	}
-	else if(keystone.equalsIgnoreCase("2")|keystone.equalsIgnoreCase("read")){
+	    
+	    //Then we can report the statistics
+	    end = System.currentTimeMillis();
 
+	    diff = end - start;
+	    System.out.println("The time it took to do this move operation was: " + diff + " milliseconds");
 	}
-	else if(keystone.equalsIgnoreCase("3")|keystone.equalsIgnoreCase("write")){
+	else if(input == 2){
+	    //Now we are going to ask the user where they want to read the data from
+	    System.out.println("Where would you like to read the data from?");
+	    System.out.println("1.\tHard Drive");
+	    System.out.println("2.\tRAM");
+	    System.out.println("3.\tCPU Cache");
+	    System.out.print("Please enter the number of your selection: ");
+	    
+	    int userSubSelect = scnr.nextInt();
+	    
+	    if(userSubSelect == 1){
+		System.out.println("Please enter a number from 1 - " + hardDrives.length);
+		System.out.print("Please enter the number of your selection: ");
+		userSubSelect = 2; 
+	    }
+	    else if(userSubSelect == 2){
+		System.out.println("Please enter a number from 1 - " + rams.length);
+		System.out.print("Please enter the number of your selection: ");
+	    }
+	    else if(userSubSelect == 3){
 
+	    }
+	    else{
+		System.out.println("Your choice was not understood. Please only enter a number in the valid range");
+	    }
+	    
+	    
+	    start = System.currentTimeMillis();
+	    
+	    //Then we can report the statistics
+	    end = System.currentTimeMillis();
+
+	    diff = end - start;
+	    System.out.println("The time it took to do this read operation was: " + diff + " milliseconds");
 	}
-	else if(keystone.equalsIgnoreCase("4")|keystone.equalsIgnoreCase("help")){
-	    displayHelp(tokens[1]);
+	else if(input == 3){
+	    
+	    start = System.currentTimeMillis();
+	    //Here we are going to process where the user wants to write the data from
+
+	    
+	    //Then we can report the statistics
+	    end = System.currentTimeMillis();
+
+	    diff = end - start;
+	    System.out.println("The time it took to do this write operation was: " + diff + " milliseconds");
+	    
 	}
-	else if(keystone.equalsIgnoreCase("5")|keystone.equalsIgnoreCase("exit")){
+	else if(input == 4){
+	    
+	}
+	else if(input == 5){
 	    done = true;
 	}
 	else{
 	    //We didn't understand the instruction, so let's just tell the user, and we will return
 	    //Then our parent will just recall us.
-	    System.out.println("Your choice was not understood. Please only enter a number");
+	    System.out.println("Your choice was not understood. Please only enter a number in the valid range");
 	    displayHelp("");
 	}
 	return;
