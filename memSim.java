@@ -135,12 +135,12 @@ class memSim extends Thread{
         long diff;
 
 		try {
-			int inputInt = Integer.parseInt(input);
+			int inputInt = getCheckedIntVal(scnr);
 			if(inputInt < 1 || inputInt > 5){
 				throw new Exception();
 			}
 			//Process the response
-			if (input == 1) {
+			if (inputInt == 1) {
             start = System.currentTimeMillis();
             //Here we are going to process where the user wants to move the data from and to
 
@@ -150,7 +150,7 @@ class memSim extends Thread{
             diff = end - start;
             System.out.println("The time it took to do this move operation was: " + diff + " milliseconds");
         }
-        else if(input == 2){
+        else if(inputInt == 2){
             //Now we are going to ask the user where they want to read the data from
             System.out.println("Where would you like to read the data from?");
             System.out.println("1.\tHard Drive");
@@ -158,7 +158,7 @@ class memSim extends Thread{
             System.out.println("3.\tCPU Cache");
             System.out.print("Please enter the number of your selection: ");
 
-            int userSubSelect = scnr.nextInt();
+            int userSubSelect = getCheckedIntVal(scnr);
 
             if(userSubSelect == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
@@ -180,7 +180,7 @@ class memSim extends Thread{
 
 			diff = end - start;
                 System.out.println("The time it took to do this read operation of the CPU Cache was: " + diff + " milliseconds");
-            }} else if (input == 3){
+            }} else if (inputInt == 3){
 
             //Now we are going to ask the user where they want to write the data to
             System.out.println("Where would you like to write the data from?");
@@ -189,7 +189,7 @@ class memSim extends Thread{
             System.out.println("3.\tCPU Cache");
             System.out.print("Please enter the number of your selection: ");
 
-            int userSubSelect = scnr.nextInt();
+            int userSubSelect = getCheckedIntVal(scnr);
 
             if(userSubSelect == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
@@ -219,8 +219,8 @@ class memSim extends Thread{
                 System.out.println("Your choice was not understood. Please only enter a number in the valid range");
             }
         }
-        else if(input == 4){
-			} else if (input == 5) {
+        else if(inputInt == 4){
+			} else if (inputInt == 5) {
 				done = true;
 			}
 		} catch (Exception e) {
