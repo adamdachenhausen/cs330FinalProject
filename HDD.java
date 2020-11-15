@@ -1,7 +1,7 @@
 /*
   This is a simulation of a Hard Drive Disk
  */
-class HDD{
+class HDD implements Runnable{
     //The overall size of this
     int size;
 
@@ -34,9 +34,10 @@ class HDD{
     /**
        
      **/
+    @Override
     public void run(){
 	//First we wait a bit to emulate the hard drive getting up to speed
-
+	
 	//Then we wait for instructions
 	while(!memSim.done){
 

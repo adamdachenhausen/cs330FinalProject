@@ -1,7 +1,7 @@
 /*
   This simulator of a Central Processing Unit with Cache
 */
-class CPU{
+class CPU implements Runnable{
 
     //The number of cores in this
     int cores;
@@ -20,7 +20,7 @@ class CPU{
     /**
 
      **/
-    //@Override
+    @Override
     public void run(){
 	
     }

@@ -1,7 +1,7 @@
 /*
   This is a simulation of Main System Memory aka Random Access Memory
  */
-class RAM{
+class RAM implements Runnable{
     //The size in bytes of this
     int size;
     //The array to hold our data
@@ -15,7 +15,7 @@ class RAM{
     /**
        
      **/
-    //@Override
+    @Override
     public void run(){
 	
     }
