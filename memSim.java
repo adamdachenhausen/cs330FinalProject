@@ -134,11 +134,7 @@ class memSim extends Thread{
         long end;
         long diff;
 
-		try {
 			int inputInt = getCheckedIntVal(scnr);
-			if(inputInt < 1 || inputInt > 5){
-				throw new Exception();
-			}
 			//Process the response
 			if (inputInt == 1) {
             start = System.currentTimeMillis();
@@ -222,8 +218,7 @@ class memSim extends Thread{
         else if(inputInt == 4){
 			} else if (inputInt == 5) {
 				done = true;
-			}
-		} catch (Exception e) {
+		} else {
 			//We didn't understand the instruction, so let's just tell the user, and we will return
 			//Then our parent will just recall us.
 			System.out.println("\nYour choice was not understood. Please only enter a number in the valid range");
