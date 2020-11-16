@@ -9,34 +9,37 @@ class HDD extends Thread{
     //The spaceLeft on this
     int spaceLeft;
 
-    //The number of platters that equally divide the size
-    int numPlatters;
+    //Our array of data
+    private byte[] data;
 
-    //Our array of platters
-    platter[] platters;
+    //The index of the last element added
+    private int dataLast;
+    
     /**
        Sets up a hard drive to be added to the system.
 
        @param size, the size in bytes of this
-       @param numPlatters, the number of single sided platters that this contains.
      **/
-    public HDD(int size, int numPlatters){
-    this.size=size;
-    this.numPlatters=numPlatters;
-
-    // Now we are going to make the virtual hard drive
-    platters = new platter[numPlatters];
-    
-    for(int i=0; i<numPlatters; i++){
-        platters[i] = new platter(size/numPlatters);
+    public HDD(int size){
+	this.size=size;
+	data = new byte[size];
+	dataLast=-1;
     }
-    }
-    public void write(byte[] input)
+    public int write(byte[] input)
     {
-	
+	for(int i = 0; i<input.length;i++){
+	    add(input[i]);
+	}
+	return 1;
     }
     public byte[] read(){
-	return null;
+	return data;
+    }
+    private void add(byte input){
+	dataLast++;
+
+	if(dataLast == size){dataLast = 0;}
+	data[dataLast] = input;
     }
     /**
        

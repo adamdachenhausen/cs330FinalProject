@@ -38,7 +38,7 @@ class memSim extends Thread{
     /**
     A constructor for the memSim object
      **/
-    public memSim(int numHDD, int hDDSize, int numHDDPlatters, int numRam, int rAMSize, int cacheSize){
+    public memSim(int numHDD, int hDDSize, int numRam, int rAMSize, int cacheSize){
         //First, we need to allow everything to know that we are starting up, aka not done
         done = false;
 
@@ -46,7 +46,7 @@ class memSim extends Thread{
         hardDrives = new HDD[numHDD];
 
         for(int i = 0; i < numHDD; i++){
-            hardDrives[i] = new HDD(hDDSize, numHDDPlatters);
+            hardDrives[i] = new HDD(hDDSize);
             hardDrives[i].start();
         }
 
@@ -77,10 +77,6 @@ class memSim extends Thread{
         String input = scnr.nextLine();
         int numHDD = Integer.parseInt(input);
 
-        System.out.println("How many platters should each hard drive have?");
-        input = scnr.nextLine();
-        int numPlatters = Integer.parseInt(input);
-
         System.out.println("And how big (in bytes) should each one be?");
         input = scnr.nextLine();
         int hDDSize = Integer.parseInt(input);
@@ -98,7 +94,7 @@ class memSim extends Thread{
         int cacheSize = Integer.parseInt(input);
 
         //And finally initialize the system
-        return new memSim(numHDD,hDDSize,numPlatters,numRAM,rAMSize,cacheSize);
+        return new memSim(numHDD,hDDSize,numRAM,rAMSize,cacheSize);
     }
 
     /**
@@ -176,7 +172,7 @@ class memSim extends Thread{
                 end = System.currentTimeMillis();
 
                 diff = end - start;
-		ramSelect--;
+		ramSelect++;
                 System.out.println("The time it took to do this read operation of RAM["+ramSelect+"] " + diff + " milliseconds");
 
             }
