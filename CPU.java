@@ -53,7 +53,7 @@ class CPU extends Thread{
     }
     private void add(byte input){
 	cache1Last++;
-	System.out.println(cache1Last+" "+cache1Size);
+	
 	if(cache1Last == cache1Size){cache1Last = 0;}
 	cache1[cache1Last] = input;
     }

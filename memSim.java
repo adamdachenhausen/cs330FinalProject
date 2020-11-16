@@ -196,9 +196,11 @@ class memSim extends Thread{
             else if(userSubSelect == 3){    
                 start = System.currentTimeMillis();
 
-		byte[] a = {1,1,1};
-                cpu.write(a);
+		System.out.println("How many bytes would you like to write?");
+		int in = scnr.nextInt();
 
+		cpu.write(new byte[in]);
+		
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
 
