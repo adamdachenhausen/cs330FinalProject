@@ -97,21 +97,37 @@ simulator is designed to simulate data transfer from one system component
 to another. For example, from the hard drive disk, to the main memory. 
 
 In Section~\ref{sec:memlate} we discuss abstractly how the memory latency 
-simulator works. Section ~\ref{sec:build} we describe how to build and run the 
-simulator. In section ~\ref{sec:expstats} we explain all the types of 
-information collected from the simulator. Then, in ~\ref{sec:data} we 
-present the actual data collected from the simulator, as well as actual 
-real world data. Section ~\ref{sec:disc} goes on to explain any discrepencies 
-found between our data and the real world collected data. Finally, in
-~\ref{sec:conclusions} we summarize our results, as well as report what
+simulator works, and why we built it. Section~\ref{sec:build} describes
+how to build and run the simulator. In section~\ref{sec:expstats} we explain
+all the types of  information collected from the simulator. Then, in section~\ref{sec:data}
+we present the actual data collected from the simulator, as well as actual 
+real world data. Section~\ref{sec:disc} goes on to explain any discrepencies 
+found between our data and the real world collected data. Finally, in~\ref{sec:conclusions}
+we summarize our results, as well as report what
 we have learned, and suggest how this simulator could be better
 improved or used. 
 
 \section{Simulating memory latency}
 \label{sec:memlate}
 
-Insert detailed description of the code here. 
-Also describe components and terms as you go. 
+\subsection{Abstract Definition}
+The goal of this project was to create a Java based simulator that will allow
+semi-low access to artificial data so the user could gather statistics and trends
+from moving this data around the artificial system. The simulator consists of four
+primary parts: memSim, which is essentially the contoller; a CPU with one level of cache;
+one or more sticks or RAM; and one or more hard drive disks.
+
+Each component's (CPU, RAM, HDD), storage is represented with a byte array.
+The user then has options to handle data on any component via the memSim terminal interface.
+
+\subsection{Primary Audience}
+Today, there are many levels of abstraction between the high-level user and their hardware.
+We wanted to give a way to collect data at this low level of hardware, but not have
+to be a electrical engineer working on the circuitry.
+
+In our research, there is also very little public access on this type of data, so
+it could be useful for researchers and students alike to use this simulator to collect
+data for a variety of projects.
 
 \section{Building and Running the Simulator}
 \label{sec:build}
