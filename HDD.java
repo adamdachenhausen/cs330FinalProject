@@ -31,6 +31,13 @@ class HDD extends Thread{
         platters[i] = new platter(size/numPlatters);
     }
     }
+    public void write(byte[] input)
+    {
+	
+    }
+    public byte[] read(){
+	return null;
+    }
     /**
        
      **/

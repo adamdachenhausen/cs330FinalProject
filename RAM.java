@@ -11,6 +11,12 @@ class RAM extends Thread{
         this.size = size;
     data = new byte[size];
     }
+    public void write(byte[] input){
+	
+    }
+    public byte[] read(){
+	return null;
+    }
     /**
        
      **/

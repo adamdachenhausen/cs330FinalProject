@@ -150,12 +150,34 @@ class memSim extends Thread{
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
                 System.out.print("Please enter the number of your selection: ");
                 int hddSelect = scnr.nextInt();
+		hddSelect--;
+		start = System.currentTimeMillis();
+
+                hardDrives[hddSelect].read();
+
+                //Then we can report the statistics
+                end = System.currentTimeMillis();
+
+                diff = end - start;
+		hddSelect++;
+                System.out.println("The time it took to do this read operation of Hard Drive #"+hddSelect+" was: " + diff + " milliseconds");
 
             }
             else if(userSubSelect == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
                 System.out.print("Please enter the number of your selection: ");
                 int ramSelect = scnr.nextInt();
+		ramSelect--;
+		start = System.currentTimeMillis();
+
+                rams[ramSelect].read();
+
+                //Then we can report the statistics
+                end = System.currentTimeMillis();
+
+                diff = end - start;
+		ramSelect--;
+                System.out.println("The time it took to do this read operation of RAM["+ramSelect+"] " + diff + " milliseconds");
 
             }
             else if(userSubSelect == 3){
@@ -185,12 +207,41 @@ class memSim extends Thread{
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
                 System.out.print("Please enter the number of your selection: ");
                 int hddSelect = scnr.nextInt();
+		hddSelect--;
+
+		start = System.currentTimeMillis();
+
+		System.out.println("How many bytes would you like to write?");
+		int in = scnr.nextInt();
+
+		hardDrives[hddSelect].write(new byte[in]);
+		
+                //Then we can report the statistics
+                end = System.currentTimeMillis();
+
+                diff = end - start;
+		hddSelect++;
+                System.out.println("The time it took to do this write operation of the Hard Drive #"+hddSelect+" was: " + diff + " milliseconds");
 
             }
             else if(userSubSelect == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
                 System.out.print("Please enter the number of your selection: ");
                 int ramSelect = scnr.nextInt();
+		ramSelect--;
+		start = System.currentTimeMillis();
+
+		System.out.println("How many bytes would you like to write?");
+		int in = scnr.nextInt();
+
+		rams[ramSelect].write(new byte[in]);
+		
+                //Then we can report the statistics
+                end = System.currentTimeMillis();
+
+                diff = end - start;
+		ramSelect++;
+                System.out.println("The time it took to do this write operation of the RAM["+ramSelect+"] was: " + diff + " milliseconds");
 
             }
             else if(userSubSelect == 3){    
@@ -205,7 +256,7 @@ class memSim extends Thread{
                 end = System.currentTimeMillis();
 
                 diff = end - start;
-                System.out.println("The time it took to do this read operation of the CPU Cache was: " + diff + " milliseconds");
+                System.out.println("The time it took to do this write operation of the CPU Cache was: " + diff + " milliseconds");
 
             }
             else{
