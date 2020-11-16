@@ -21,6 +21,7 @@ class CPU extends Thread{
      **/
     public CPU(int numCores, int cacheSize){
      cores = numCores;
+     cache1 = new byte[cacheSize];
      cache1Size = cacheSize;
      cache1Last = -1; //We hold the index of the last item in the array
     }
