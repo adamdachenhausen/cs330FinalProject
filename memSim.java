@@ -161,7 +161,7 @@ class memSim extends Thread{
             else if(userSubSelect == 3){
                 start = System.currentTimeMillis();
 
-                //cpu.read();
+                cpu.read();
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
@@ -196,7 +196,8 @@ class memSim extends Thread{
             else if(userSubSelect == 3){    
                 start = System.currentTimeMillis();
 
-                //cpu.write();
+		byte[] a = {1,1,1};
+                cpu.write(a);
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
