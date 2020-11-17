@@ -221,34 +221,46 @@ For help with a specific command type 'help [command]'
 
 Explain every statistics.
 
-As we will be simulating the momeory simulator, we will be working on the virtual
-components. These components are those linked directly with the memory usage, these will
-include the central processing unit (CPU), the Hard Drive and the RAM sticks.
-Throughout the simulation the CPU will be accessing the RAM and the Hard Drive to process
-the data exxisting in both of these components. We are going to be timing the transfer
-of data from both the Hard Drive and RAM.
+The primary path of study through the simulator was to gather the statistics about the
+events, latencies and delays that take place in the very low level of memory movement.
+We gathered the latency time, which is the time delay taking place in data transfer,reading and
+writing at the lowest level of memory management.
 
-The movement, reading and writing of the data to any of the components will be timed, which
-will help us collect the major statistics we need here. The latency which is going to be the
-major finding of the simulation is going to be calculted throught a stopwatch implemented
-inside our program. As we keep clocking, the time is going to be a projected ratio of the time that will be taking
-place on the basic level. Thus, the time will be reduced to the ratio fully suited for the
+To reperesent this level of memory management the simulator was designed to hold some key components.
+These components are those linked directly with the memory usage,including the
+central processing unit (CPU), the Hard Drive and the RAM sticks.
+Throughout the simulation the CPU was accessing the RAM and the Hard Drive to process
+the data existing. We timed the transfer of data from both the Hard Drive and RAM.
+
+The movement, reading and writing of the data to any of the components was timed, which helped
+us to  collect the major statistics we needed  here. The latency which was  going to be the
+major finding of the simulation was calculated through a stopwatch implemented
+inside our program. As we kept clocking, the time was a projected ratio of the time that was supposed to
+take place on the basic level. Thus, the time gathered was reduced to the ratio fully suited for the
 level of details being dealt with in the simulator.
 
-The Memory, which is the core component of the simulator will be represented by array of bytes and
-will be 
+The Memory, which was the core component of the simulator and the primary part of each component
+was represented by arrays of byte type. As the simulation went on, these arrays in each of the components
+were modified depending upon the event tanking place. This modification gave us the data for how the size
+of data acts proportional to the latency and the delay in the transfer, writing and reading of data. The size
+of data was one of the major field of the statistics being gathered. We studied upon the size of the
+data as how much of variance does it brings to the clock.
 
-The variable we are going to have in the simulation are going to be the number of Cores in the CPU,
+As the variable we had in the simulation were the number of Cores in the CPU,
 the number of hard drives, the size of hard drive in bytes, the number of RAM sticks, the size of
-each of the RAM stick and the size of the CPU Cache. The values for each of these variables are
-going to be input by the user of the simulator, before the program starts simulating the events.
-The simulator is programmed in a way that different values for any these variables are going to effect
-the statistics from a minor to a very significant way, depending upon the value of change and the
-effectiveness of the change in the study.
+each of the RAM stick and the size of the CPU Cache, we kept a record of each combination. However,
+even with the CPU having a variable number of cores, for the path of study being conducted, we mantained
+it to be 1 throughout the study. The simulator was structured to take in a value for each of the variables,
+except the number of cores. This led to new fields of data for statistics being gathered.
+The size of cache in the CPU, which is a small form of memory and the quickest one out of RAM and HDD, was
+varied to yield a different result, which went into the into the table of statistics too.
+The same was done with the RAM, which relatively larger form of memory. We gathered how the data access
+and transfer on RAM vary in the aspect of Time as with different sizes, and how slower or faster was the case
+with the accessing, editing and transfering from and to the Hard drives.
 
-CPU is going to have an option to be variable in number of cores, but for the path of the study being
-conducted we are going to mantain the number of cores to just 1 throughout. Apart from the number
-of cores, CPU will have a 
+The number of RAM sticks and the number of hard drive was also an important variable in deciding the latency,
+the access time and the writing time, given that increasing the number of these components meant more
+size but a different access time.
 
 
 Also describe components and terms as you go. 
