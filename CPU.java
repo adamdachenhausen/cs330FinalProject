@@ -30,6 +30,8 @@ class CPU extends Thread{
        (Essentially just returns cache1)
        there should be no delay as this is stored on RAM, and the cache
        in a real system will be much faster
+
+       @return the data read in a byte array
      **/
     public byte[] read(){
 	return cache1;
@@ -51,13 +53,31 @@ class CPU extends Thread{
 	}
 	return 1;
     }
+    /**
+       Writes one byte to this, at a current pointer so we will always
+       have the x most current bytes
+     **/
     private void add(byte input){
 	cache1Last++;
 	
 	if(cache1Last == cache1Size){cache1Last = 0;}
 	cache1[cache1Last] = input;
     }
+    /**
+       Deletes data from this, by moving the tail pointer forward
 
+       @param numBytes the number of bytes to be deleted, if greater than 
+       cache1Size, then only cache1Size bytes are deleted
+     **/
+    public void delete(int numBytes){
+	//First some error checking
+	if(numBytes>cache1Size){numBytes=cache1Size;}
+	if(numBytes<0){numBytes=0;}
+
+	for(int i=0; i<numBytes;i++){
+	    cache1Last++;
+	}
+    }
     /**
 
      **/

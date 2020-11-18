@@ -25,6 +25,13 @@ class HDD extends Thread{
 	data = new byte[size];
 	dataLast=-1;
     }
+    /**
+       Writes a given set of bytes to this.
+
+       @param input, an array of bytes to write to this
+
+       @return 1 if the write was successful
+     **/
     public int write(byte[] input)
     {
 	for(int i = 0; i<input.length;i++){
@@ -32,14 +39,31 @@ class HDD extends Thread{
 	}
 	return 1;
     }
+    /**
+       Reads data from this
+
+       @return a byte array of the data read from this
+     **/
     public byte[] read(){
 	return data;
     }
+    /**
+       Adds one byte to this at the current pointer
+       @param input the byte to add to this
+    **/
     private void add(byte input){
 	dataLast++;
 
 	if(dataLast == size){dataLast = 0;}
 	data[dataLast] = input;
+    }
+    /**
+       Deletes data from this
+
+       
+     **/
+    public void delete(){
+
     }
     /**
        

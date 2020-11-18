@@ -3,7 +3,12 @@ import java.util.Scanner;
 /*
 This is the main file for the memSim project.
 
-It starts up the CPU, RAM, HDD, and any other accessories specified by the user
+It starts up a CPU (containing one level of cache), a user specified number
+of RAM sticks of the same size, and a user specified number of HDDs of the same
+size.
+
+All components are threaded individually, as this offers multiple memory actions
+to happen at once.
 
 Authors: Pat Baumgardner, Adam Dachenhausen, Shah Syed
  */
@@ -108,6 +113,7 @@ class memSim extends Thread{
         System.out.println("1.\tMove Data");
         System.out.println("2.\tRead Data");
         System.out.println("3.\tWrite Data");
+	System.out.println("4.\tDelete Data");
         System.out.println("4.\tHelp");
         System.out.println("5.\tExit");
         System.out.print("Please enter the number of your selection: ");
@@ -133,6 +139,7 @@ class memSim extends Thread{
             System.out.println("The time it took to do this move operation was: " + diff + " milliseconds");
         }
         else if(input == 2){
+	    //We read data
             //Now we are going to ask the user where they want to read the data from
             System.out.println("Where would you like to read the data from?");
             System.out.println("1.\tHard Drive");
@@ -189,7 +196,7 @@ class memSim extends Thread{
             }
         }
         else if(input == 3){
-
+	    //We write data
             //Now we are going to ask the user where they want to write the data to
             System.out.println("Where would you like to write the data from?");
             System.out.println("1.\tHard Drive");
@@ -259,10 +266,73 @@ class memSim extends Thread{
                 System.out.println("Your choice was not understood. Please only enter a number in the valid range");
             }
         }
-        else if(input == 4){
+	else if(input == 4){
+	    //We delete data
+	    //Now we are going to ask the user where they want to read the data from
+            System.out.println("Where would you like to delete the data from?");
+            System.out.println("1.\tHard Drive");
+            System.out.println("2.\tRAM");
+            System.out.println("3.\tCPU Cache");
+            System.out.print("Please enter the number of your selection: ");
 
-        }
+            int userSubSelect = scnr.nextInt();
+
+            if(userSubSelect == 1){
+                System.out.println("Please choose a drive from 1 - " + hardDrives.length);
+                System.out.print("Please enter the number of your selection: ");
+                int hddSelect = scnr.nextInt();
+		hddSelect--;
+		start = System.currentTimeMillis();
+
+                hardDrives[hddSelect].delete();
+
+                //Then we can report the statistics
+                end = System.currentTimeMillis();
+
+                diff = end - start;
+		hddSelect++;
+                System.out.println("The time it took to do this delete operation of Hard Drive #"+hddSelect+" was: " + diff + " milliseconds");
+
+            }
+            else if(userSubSelect == 2){
+                System.out.println("Please choose a stick of ram from 1 - " + rams.length);
+                System.out.print("Please enter the number of your selection: ");
+                int ramSelect = scnr.nextInt();
+		ramSelect--;
+		start = System.currentTimeMillis();
+
+                rams[ramSelect].delete();
+
+                //Then we can report the statistics
+                end = System.currentTimeMillis();
+
+                diff = end - start;
+		ramSelect++;
+                System.out.println("The time it took to do this delete operation of RAM["+ramSelect+"] " + diff + " milliseconds");
+
+            }
+            else if(userSubSelect == 3){
+		System.out.println("How many bytes would you like to delete?");
+		System.out.print("Please enter the number of your selection: ");
+		int bytesDelete = scnr.nextInt();
+		
+                start = System.currentTimeMillis();
+
+                cpu.delete(bytesDelete);
+
+                //Then we can report the statistics
+                end = System.currentTimeMillis();
+
+                diff = end - start;
+                System.out.println("The time it took to do this delete operation of the CPU Cache was: " + diff + " milliseconds");
+            }
+	}
         else if(input == 5){
+	    //We display the help message
+	    
+        }
+        else if(input == 6){
+	    //We exit the simulator
             done = true;
         }
         else{
