@@ -10,11 +10,8 @@ class HDD extends Thread{
     int spaceLeft;
 
     //Our array of data
-    private byte[] data;
+    private dataBlock[] data;
 
-    //The index of the last element added
-    private int dataLast;
-    
     /**
        Sets up a hard drive to be added to the system.
 
@@ -22,48 +19,130 @@ class HDD extends Thread{
      **/
     public HDD(int size){
 	this.size=size;
-	data = new byte[size];
-	dataLast=-1;
+	this.spaceLeft=size;
+	data = new dataBlock[size/dataBlock.WIDTH];
     }
     /**
        Writes a given set of bytes to this.
 
-       @param input, an array of bytes to write to this
+       @param numBytes, the number of bytes to write to this
 
-       @return 1 if the write was successful
+       @return 1 if the write was successful, 0 if not (ie not enough space)
      **/
-    public int write(byte[] input)
+    public int write(int numBytes)
     {
-	for(int i = 0; i<input.length;i++){
-	    add(input[i]);
+	//First let's check if we have enough raw space
+	if(numBytes > spaceLeft){return 0;}
+
+	//Now let's reserve our space and then write our data
+	spaceLeft =- numBytes;
+
+	//Now we call our helper method
+	int totalBlocks;
+	if(numBytes == 0){totalBlocks=0;}
+	else if(numBytes<dataBlock.WIDTH){totalBlocks = 1;}
+	else{
+	    totalBlocks = numBytes/dataBlock.WIDTH;
+	    if(numBytes%dataBlock.WIDTH!=0){totalBlocks++;}
 	}
-	return 1;
+	return add(totalBlocks);
     }
+    /**
+       FIFO add method. Finds a chunk of memory at least numBlocks big, and stores
+       numBlocks there.
+
+       @param numBlocks the number of blocks that need to be added to this
+       @return 1, if successful add, otherwise 0
+     **/
+    private int add(int numBlocks){
+	int count = 0;
+
+	//First we want to be able to loop through the entire data array
+	for(int i=0;i<data.length;i++){
+	    //Then we check if each one is open
+	    if(data[i] == null){
+		count = 1;
+		//Then we see if we have a hole big enough
+		while(data[count] == null && count != numBlocks){
+		    count++;    
+		}
+		//Then we see if the hole is big enough
+		if(count == numBlocks){
+		    //Then we can add blocks starting at i, which has to be special
+		    data[i]=new dataBlock(true,numBlocks);
+		    count--;
+		    i++;
+		    while(count!=0){
+			data[i] = new dataBlock();
+			count--;
+			i++;
+		    }
+		    //Since we added the chunk, we can just return
+		    return 1;
+		}
+		//If we got here, that means we don't have a hole big enough, so let's reset count
+		//and skip those value by adding (count - 1) + i
+		count -= 1;
+		i += count;
+		count = 0;
+		
+	    }
+	}
+	return 0;
+
+	
+    }
+
+	    
     /**
        Reads data from this
-
-       @return a byte array of the data read from this
+       Precondition: index is a dataBlock where .start is true.
+       @param index The index of the array where the data block starts
      **/
-    public byte[] read(){
-	return data;
-    }
-    /**
-       Adds one byte to this at the current pointer
-       @param input the byte to add to this
-    **/
-    private void add(byte input){
-	dataLast++;
+    public void read(int index){
 
-	if(dataLast == size){dataLast = 0;}
-	data[dataLast] = input;
+	//Loop through the data until we hit a null block or
+	//If we have two blocks back-to-back, then the start flag
+	//will be high, so we can stop reading our dataBlock
+	while(data[index]!=null || data[index].start==true){
+	    index++;   
+	    
+	}
     }
     /**
        Deletes data from this
-
-       
+       Precondition: the index is a dataBlock where .start is true
+       @param index, the start index of the block of data to delete.
      **/
-    public void delete(){
+    public void delete(int index){
+	//Loop through the data until we hit a null block or
+	//If we have two blocks back-to-back, then the start flag
+	//will be high, so we can stop reading our dataBlock
+	while(data[index]!=null || data[index].start==true){
+	    //Delete the current block
+	    data[index] = null;
 
+	    //Then increment and free space
+	    index++;
+	    spaceLeft+=dataBlock.WIDTH;
+	}
+    }
+    /**
+       Prints all the chunks(multiple dataBlocks) of data for the user to see what is on the disk.
+       Useful for selecting what data to read, write and delete.
+     **/
+    public void print(){
+	System.out.println("");
+	System.out.println("****Data on this hard drive****");
+
+	//First loop through the whole array
+	for(int i=0;i<data.length;i++){
+	    //Then if we encounter a dataBlock that is a start, print it
+	    if(data[i].start = true){
+		System.out.println(i+": "+data[i].size+" bytes big");
+	    }
+	}
+	System.out.println("*******************************");
     }
     /**
        

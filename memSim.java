@@ -101,7 +101,7 @@ class memSim extends Thread{
 	//Let's print the system config
 	System.out.println();
 	System.out.println("***********System Config**********");
-	System.out.println(numHDD+" number of hard drives, each "+hddSize+" bytes big.");
+	System.out.println(numHDD+" number of hard drives, each "+hDDSize+" bytes big.");
 	System.out.println(numRAM+" sticks of RAM, each "+rAMSize+" bytes big.");
 	System.out.println("CPU cache is " + cacheSize + " bytes big.");
 	System.out.println("**********************************");
@@ -196,7 +196,7 @@ class memSim extends Thread{
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action
-                rams[ramSelect].read();
+                rams[ramSelect].read(dataSelect);
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
@@ -221,7 +221,7 @@ class memSim extends Thread{
         else if(input == 3){
 	    //We write data
             //Now we are going to ask the user where they want to write the data to
-            System.out.println("Where would you like to write the data from?");
+            System.out.println("Where would you like to write the data to?");
             System.out.println("1.\tHard Drive");
             System.out.println("2.\tRAM");
             System.out.println("3.\tCPU Cache");
@@ -240,7 +240,7 @@ class memSim extends Thread{
 		System.out.println("How many bytes would you like to write?");
 		int in = scnr.nextInt();
 
-		hardDrives[hddSelect].write(new byte[in]);
+		hardDrives[hddSelect].write(in);
 		
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
@@ -260,7 +260,7 @@ class memSim extends Thread{
 		System.out.println("How many bytes would you like to write?");
 		int in = scnr.nextInt();
 
-		rams[ramSelect].write(new byte[in]);
+		rams[ramSelect].write(in);
 		
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
