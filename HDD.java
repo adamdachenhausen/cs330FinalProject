@@ -20,7 +20,14 @@ class HDD extends Thread{
     public HDD(int size){
 	this.size=size;
 	this.spaceLeft=size;
-	data = new dataBlock[size/dataBlock.WIDTH];
+	int totalBlocks;
+	if(size == 0){totalBlocks=0;}
+	else if(size<dataBlock.WIDTH){totalBlocks = 1;}
+	else{
+	    totalBlocks = size/dataBlock.WIDTH;
+	    if(size%dataBlock.WIDTH!=0){totalBlocks++;}
+	}
+	data = new dataBlock[totalBlocks];
     }
     /**
        Writes a given set of bytes to this.
@@ -61,9 +68,8 @@ class HDD extends Thread{
 	for(int i=0;i<data.length;i++){
 	    //Then we check if each one is open
 	    if(data[i] == null){
-		count = 1;
 		//Then we see if we have a hole big enough
-		while(data[count] == null && count != numBlocks){
+		while(count != numBlocks && data[count] == null ){
 		    count++;    
 		}
 		//Then we see if the hole is big enough
@@ -104,7 +110,7 @@ class HDD extends Thread{
 	//Loop through the data until we hit a null block or
 	//If we have two blocks back-to-back, then the start flag
 	//will be high, so we can stop reading our dataBlock
-	while(data[index]!=null || data[index].start==true){
+	while(index<data.length || data[index]!=null || data[index].start==true){
 	    index++;   
 	    
 	}
