@@ -451,7 +451,7 @@ class memSim extends Thread{
 	}
         else if(input == 5){
 	    //We display the help message
-	    
+	    displayHelp();
         }
         else if(input == 6){
 	    //We exit the simulator
@@ -462,7 +462,7 @@ class memSim extends Thread{
             //We didn't understand the instruction, so let's just tell the user, and we will return
             //Then our parent will just recall us.
             System.out.println("\u001B[41mYour choice was not understood. Please only enter a number in the valid range\u001B[0m");
-            displayHelp("");
+            displayHelp();
         }
 
         return;
@@ -471,7 +471,7 @@ class memSim extends Thread{
     /**
     A helper method to display a user help menu
      **/
-    private static void displayHelp(String input){
+    private static void displayHelp(){
         System.out.println();
         System.out.println();
         System.out.println("Java Based Memory Latency Simulator");
@@ -482,28 +482,42 @@ class memSim extends Thread{
         System.out.println("write");
         System.out.println("help");
         System.out.println("exit");
-        System.out.println("For help with a specific command type 'help [command]'");
-        if(input == null){
-            return;
-        }
-        else if(input.equalsIgnoreCase("move")){
-            System.out.println("Moves data from one specified location to another");
-        }
-        else if(input.equalsIgnoreCase("read")){
-            System.out.println("Reads data from specifed location");
-        }
-        else if(input.equalsIgnoreCase("write")){
-            System.out.println("Writes data to specified location");
-        }
-        else if(input.equalsIgnoreCase("help")){
-            System.out.println("Displays the help message");
-        }
-        else if(input.equalsIgnoreCase("exit")){
-            System.out.println("Exits the simulator");
-        }
-        else{
-            System.out.println("Command not found");
-        }
+        System.out.println("For help with a specific command type [command]");
+	System.out.println("Type 'q' to quit the help menu");
+	Scanner scnr = new Scanner(System.in);
+	String input = scnr.next();
+	while(!input.equalsIgnoreCase("q")){
+	    //First display the info requested
+	    System.out.print("\u001B[36m");
+	    if(input == null){
+		return;
+	    }
+	    else if(input.equalsIgnoreCase("move")){
+		System.out.println("Moves data from one specified location to another");
+	    }
+	    else if(input.equalsIgnoreCase("read")){
+		System.out.println("Reads data from specifed location");
+	    }
+	    else if(input.equalsIgnoreCase("write")){
+		System.out.println("Writes data to specified location");
+	    }
+	    else if(input.equalsIgnoreCase("delete")){
+		System.out.println("Deletes data from the specified drive");
+	    }
+	    else if(input.equalsIgnoreCase("help")){
+		System.out.println("Displays the help message");
+	    }
+	    else if(input.equalsIgnoreCase("exit")){
+		System.out.println("Exits the simulator");
+	    }
+	    else{
+		System.out.println("\u001B[31mCommand not found");
+	    }
+	    System.out.print("\u001B[0m");
+	    //Then wait for new input
+	    input = scnr.next();
+	    
+	}
         System.out.println();
         System.out.println();
         return;
