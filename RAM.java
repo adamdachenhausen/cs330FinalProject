@@ -15,7 +15,15 @@ class RAM extends Thread{
         this.size = size;
 	this.spaceLeft = size;
 	
-	data = new dataBlock[size/dataBlock.WIDTH];
+	int totalBlocks;
+	if(size == 0){totalBlocks=0;}
+	else if(size<dataBlock.WIDTH){totalBlocks = 1;}
+	else{
+	    totalBlocks = size/dataBlock.WIDTH;
+	    if(size%dataBlock.WIDTH!=0){totalBlocks++;}
+	}
+	
+	data = new dataBlock[totalBlocks];
     }
     /**
        Writes and input byte array to this
@@ -49,7 +57,7 @@ class RAM extends Thread{
 	    if(data[i] == null){
 		count = 1;
 		//Then we see if we have a hole big enough
-		while(data[count] == null && count != numBlocks){
+		while(count != numBlocks && data[count] == null){
 		    count++;
 		}
 		//Then we see if the hole is big enough
@@ -84,8 +92,9 @@ class RAM extends Thread{
 	//Loop through the data until we hit a null block or
 	//If we have two blocks back-to-back, then the start flag
 	//will be high, so we can stop reading our dataBlock
-	while(data[index]!=null || data[index].start==true){
-	    index++;
+	while(index<data.length && (data[index]!=null || data[index].start==true)){
+	    index++;   
+	    
 	}
     }
     /**
@@ -97,7 +106,7 @@ class RAM extends Thread{
 	//Loop through the data until we hit a null block
 	//If we have two blocks back-to-back, then the start flag
 	//will be high, so we can stop reading our dataBlock
-	while(data[index]!=null || data[index].start==true){
+	while(index<data.length && (data[index]!=null || data[index].start==true)){
 	    //Delete the current block
 	    data[index]=null;
 

@@ -124,8 +124,8 @@ class memSim extends Thread{
         System.out.println("2.\tRead Data");
         System.out.println("3.\tWrite Data");
 	System.out.println("4.\tDelete Data");
-        System.out.println("4.\tHelp");
-        System.out.println("5.\tExit");
+        System.out.println("5.\tHelp");
+        System.out.println("6.\tExit");
         System.out.print("Please enter the number of your selection: ");
 
         //Then wait for their response and tokenize it

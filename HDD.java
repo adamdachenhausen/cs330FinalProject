@@ -110,7 +110,7 @@ class HDD extends Thread{
 	//Loop through the data until we hit a null block or
 	//If we have two blocks back-to-back, then the start flag
 	//will be high, so we can stop reading our dataBlock
-	while(index<data.length || data[index]!=null || data[index].start==true){
+	while(index<data.length && (data[index]!=null || data[index].start==true)){
 	    index++;   
 	    
 	}
@@ -124,7 +124,7 @@ class HDD extends Thread{
 	//Loop through the data until we hit a null block or
 	//If we have two blocks back-to-back, then the start flag
 	//will be high, so we can stop reading our dataBlock
-	while(data[index]!=null || data[index].start==true){
+	while(index<data.length && (data[index]!=null || data[index].start==true)){
 	    //Delete the current block
 	    data[index] = null;
 
