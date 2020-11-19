@@ -164,9 +164,16 @@ class memSim extends Thread{
                 System.out.print("Please enter the number of your selection: ");
                 int hddSelect = scnr.nextInt();
 		hddSelect--;
+
+		//Now we have to prompt the user to pick a chunk of data
+		hardDrives[hddSelect].print();
+		System.out.println("Please select one of the above partitions");
+		int dataSelect = scnr.nextInt();
+
+		//Then do the action
 		start = System.currentTimeMillis();
 
-                hardDrives[hddSelect].read();
+                hardDrives[hddSelect].read(dataSelect);
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
@@ -183,6 +190,12 @@ class memSim extends Thread{
 		ramSelect--;
 		start = System.currentTimeMillis();
 
+		//Now we have to prompt the user to pick a chunk of data
+		rams[ramSelect].print();
+		System.out.println("Please select one of the above partitions");
+		int dataSelect = scnr.nextInt();
+
+		//Then do the action
                 rams[ramSelect].read();
 
                 //Then we can report the statistics
@@ -294,7 +307,14 @@ class memSim extends Thread{
 		hddSelect--;
 		start = System.currentTimeMillis();
 
-                hardDrives[hddSelect].delete();
+
+		//Now we have to prompt the user to pick a chunk of data
+		hardDrives[hddSelect].print();
+		System.out.println("Please select one of the above partitions");
+		int dataSelect = scnr.nextInt();
+
+		//Then do the action		
+                hardDrives[hddSelect].delete(dataSelect);
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
@@ -309,9 +329,16 @@ class memSim extends Thread{
                 System.out.print("Please enter the number of your selection: ");
                 int ramSelect = scnr.nextInt();
 		ramSelect--;
+		
+		//Now we have to prompt the user to pick a chunk of data
+		rams[ramSelect].print();
+		System.out.println("Please select one of the above partitions");
+		int dataSelect = scnr.nextInt();
+
+		//Then do the action
 		start = System.currentTimeMillis();
 
-                rams[ramSelect].delete();
+                rams[ramSelect].delete(dataSelect);
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
