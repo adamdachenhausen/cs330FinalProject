@@ -100,7 +100,7 @@ class memSim extends Thread{
 	    System.out.println("\tand 3 partitions of 1024 bytes, and 1 of 2048 bytes written to the RAM,");
 	    System.out.println("\tand there is nothing in the cache.");
 	    
-	    System.out.println("\u001B[35mSystem 3:\u001B[0m");
+	    System.out.println("\u001B[35mSystem 3: \u001B[31mRUN AT YOUR OWN RISK\u001B[0m");
 	    System.out.println("\t1 HDD with size: 1024000 bytes");
 	    System.out.println("\t1 Stick of RAM with size: 51200 bytes");
 	    System.out.println("\t CPU Cache size: 2048 bytes");
@@ -135,7 +135,7 @@ class memSim extends Thread{
 		//or if the user just wants to load 1
 
 		//First initialize an empty memSim
-		memSim finger = new memSim(2,102400,2,51200,1024);
+		memSim finger = new memSim(2,10240,2,51200,1024);
 
 		//Then write the specified data
 		for(int i=0;i<3;i++){
