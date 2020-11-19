@@ -98,6 +98,16 @@ class memSim extends Thread{
         input = scnr.nextLine();
         int cacheSize = Integer.parseInt(input);
 
+	//Let's print the system config
+	System.out.println();
+	System.out.println("***********System Config**********");
+	System.out.println(numHDD+" number of hard drives, each "+hddSize+" bytes big.");
+	System.out.println(numRAM+" sticks of RAM, each "+rAMSize+" bytes big.");
+	System.out.println("CPU cache is " + cacheSize + " bytes big.");
+	System.out.println("**********************************");
+	System.out.println();
+
+	    
         //And finally initialize the system
         return new memSim(numHDD,hDDSize,numRAM,rAMSize,cacheSize);
     }
