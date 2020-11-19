@@ -126,7 +126,7 @@ class memSim extends Thread{
 	System.out.println("4.\tDelete Data");
         System.out.println("5.\tHelp");
         System.out.println("6.\tExit");
-        System.out.print("Please enter the number of your selection: ");
+        System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
 
         //Then wait for their response and tokenize it
         Scanner scnr = new Scanner(System.in);
@@ -144,7 +144,7 @@ class memSim extends Thread{
 	    System.out.println("1.\tHard Drive");
             System.out.println("2.\tRAM");
             System.out.println("3.\tCPU Cache");
-            System.out.print("Please enter the number of your selection: ");
+            System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
 
             int userSubSelect1 = scnr.nextInt();
 	    int userSubSelect2 = userSubSelect1;
@@ -153,25 +153,25 @@ class memSim extends Thread{
 
 	    if(userSubSelect1 == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int hddSelect = scnr.nextInt();
 		hddSelect--;
 
 		//Now we have to prompt the user to pick a chunk of data
 		hardDrives[hddSelect].print();
-		System.out.println("Please select one of the above partitions");
+		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
 		dataSelect1 = scnr.nextInt();
 
             }
             else if(userSubSelect1 == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int ramSelect = scnr.nextInt();
 		ramSelect--;
 		
 		//Now we have to prompt the user to pick a chunk of data
 		rams[ramSelect].print();
-		System.out.println("Please select one of the above partitions");
+		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
 		dataSelect1 = scnr.nextInt();
 
             }
@@ -185,38 +185,38 @@ class memSim extends Thread{
 	    System.out.println("1.\tHard Drive");
             System.out.println("2.\tRAM");
             System.out.println("3.\tCPU Cache");
-            System.out.print("Please enter the number of your selection: ");
+            System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
 
 	    userSubSelect2 = scnr.nextInt();
 
 	    if(userSubSelect2 == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int hddSelect = scnr.nextInt();
 		hddSelect--;
 
 		//Now we have to prompt the user to pick a chunk of data
 		hardDrives[hddSelect].print();
-		System.out.println("Please select one of the above partitions");
+		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
 		dataSelect2 = scnr.nextInt();
 
             }
             else if(userSubSelect2 == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int ramSelect = scnr.nextInt();
 		ramSelect--;
 		
 		//Now we have to prompt the user to pick a chunk of data
 		rams[ramSelect].print();
-		System.out.println("Please select one of the above partitions");
+		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
 		dataSelect2 = scnr.nextInt();
 
             }
             else if(userSubSelect2 == 3){
 		dataSelect2 = 1;
             }
-
+	    
 	    //We make sure that the user didn't try to move from A to A
 	    if(userSubSelect1==userSubSelect2 && dataSelect1==dataSelect2){
 		System.out.println("\u001B[41mError, you cannot move data from one place to the same place. Please try again\u001B[0m");
@@ -240,19 +240,19 @@ class memSim extends Thread{
             System.out.println("1.\tHard Drive");
             System.out.println("2.\tRAM");
             System.out.println("3.\tCPU Cache");
-            System.out.print("Please enter the number of your selection: ");
+            System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
 
             int userSubSelect = scnr.nextInt();
 
             if(userSubSelect == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int hddSelect = scnr.nextInt();
 		hddSelect--;
 
 		//Now we have to prompt the user to pick a chunk of data
 		hardDrives[hddSelect].print();
-		System.out.println("Please select one of the above partitions");
+		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action
@@ -270,14 +270,14 @@ class memSim extends Thread{
             }
             else if(userSubSelect == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int ramSelect = scnr.nextInt();
 		ramSelect--;
 		start = System.currentTimeMillis();
 
 		//Now we have to prompt the user to pick a chunk of data
 		rams[ramSelect].print();
-		System.out.println("Please select one of the above partitions");
+		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action
@@ -310,19 +310,19 @@ class memSim extends Thread{
             System.out.println("1.\tHard Drive");
             System.out.println("2.\tRAM");
             System.out.println("3.\tCPU Cache");
-            System.out.print("Please enter the number of your selection: ");
+            System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
 
             int userSubSelect = scnr.nextInt();
 
             if(userSubSelect == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int hddSelect = scnr.nextInt();
 		hddSelect--;
 
 		start = System.currentTimeMillis();
 
-		System.out.println("How many bytes would you like to write?");
+		System.out.print("\u001B[33mHow many bytes would you like to write?\u001B[0m");
 		int in = scnr.nextInt();
 
 		hardDrives[hddSelect].write(in);
@@ -337,7 +337,7 @@ class memSim extends Thread{
             }
             else if(userSubSelect == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int ramSelect = scnr.nextInt();
 		ramSelect--;
 		start = System.currentTimeMillis();
@@ -358,7 +358,7 @@ class memSim extends Thread{
             else if(userSubSelect == 3){    
                 start = System.currentTimeMillis();
 
-		System.out.println("How many bytes would you like to write?");
+		System.out.print("\u001B[33mHow many bytes would you like to write?\u001B[0");
 		int in = scnr.nextInt();
 
 		cpu.write(new byte[in]);
@@ -381,13 +381,13 @@ class memSim extends Thread{
             System.out.println("1.\tHard Drive");
             System.out.println("2.\tRAM");
             System.out.println("3.\tCPU Cache");
-            System.out.print("Please enter the number of your selection: ");
+            System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
 
             int userSubSelect = scnr.nextInt();
 
             if(userSubSelect == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int hddSelect = scnr.nextInt();
 		hddSelect--;
 		start = System.currentTimeMillis();
@@ -395,7 +395,7 @@ class memSim extends Thread{
 
 		//Now we have to prompt the user to pick a chunk of data
 		hardDrives[hddSelect].print();
-		System.out.println("Please select one of the above partitions");
+		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action		
@@ -411,13 +411,13 @@ class memSim extends Thread{
             }
             else if(userSubSelect == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
-                System.out.print("Please enter the number of your selection: ");
+                System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
                 int ramSelect = scnr.nextInt();
 		ramSelect--;
 		
 		//Now we have to prompt the user to pick a chunk of data
 		rams[ramSelect].print();
-		System.out.println("Please select one of the above partitions");
+		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action
@@ -435,7 +435,7 @@ class memSim extends Thread{
             }
             else if(userSubSelect == 3){
 		System.out.println("How many bytes would you like to delete?");
-		System.out.print("Please enter the number of your selection: ");
+	        System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
 		int bytesDelete = scnr.nextInt();
 		
                 start = System.currentTimeMillis();
@@ -456,11 +456,12 @@ class memSim extends Thread{
         else if(input == 6){
 	    //We exit the simulator
             done = true;
+	    System.out.println("\u001B[32mSimulator exited successfully\u001B[0m");
         }
         else{
             //We didn't understand the instruction, so let's just tell the user, and we will return
             //Then our parent will just recall us.
-            System.out.println("Your choice was not understood. Please only enter a number in the valid range");
+            System.out.println("\u001B[41mYour choice was not understood. Please only enter a number in the valid range\u001B[0m");
             displayHelp("");
         }
 
