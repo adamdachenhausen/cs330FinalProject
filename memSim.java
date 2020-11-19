@@ -110,7 +110,7 @@ class memSim extends Thread{
 	    int loadSelect = scnr.nextInt();
 	    if(loadSelect == 2){
 		//First initialize an empty memSim
-		memSim finger = new memSim(2,102400,2,51200,2048);
+		memSim finger = new memSim(1,102400,1,51200,2048);
 
 		//Then write the specified data
 		for(int i=0;i<10;i++){
@@ -135,7 +135,7 @@ class memSim extends Thread{
 		//or if the user just wants to load 1
 
 		//First initialize an empty memSim
-		memSim finger = new memSim(1,10240,1,51200,1024);
+		memSim finger = new memSim(2,102400,2,51200,1024);
 
 		//Then write the specified data
 		for(int i=0;i<3;i++){
