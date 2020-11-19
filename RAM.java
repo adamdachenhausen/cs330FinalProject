@@ -15,37 +15,23 @@ class RAM extends Thread{
         this.size = size;
 	this.spaceLeft = size;
 	
-	int totalBlocks;
-	if(size == 0){totalBlocks=0;}
-	else if(size<dataBlock.WIDTH){totalBlocks = 1;}
-	else{
-	    totalBlocks = size/dataBlock.WIDTH;
-	    if(size%dataBlock.WIDTH!=0){totalBlocks++;}
-	}
-	
-	data = new dataBlock[totalBlocks];
+	data = new dataBlock[size/dataBlock.WIDTH];
     }
     /**
        Writes and input byte array to this
-       @param numBytes the number of bytes to write
+       @param input the number of bytes to write
        @return 1, if write is successful, 0 if not (ie not enough space left)
      **/
-    public int write(int numBytes){
-	//First let's check if we have enough raw space
-	if(numBytes > spaceLeft){return 0;}
+    public int write(int input){
+	//First let's check that we have enough space
+	if(input > spaceLeft){return 0;}
 
-	//Now let's reserve our space and then write our data
-	spaceLeft =- numBytes;
+	//Now let's reserve that space, and write our data
+	spaceLeft =- input;
 
 	//Now we call our helper method
-	int totalBlocks;
-	if(numBytes == 0){totalBlocks=0;}
-	else if(numBytes<dataBlock.WIDTH){totalBlocks = 1;}
-	else{
-	    totalBlocks = numBytes/dataBlock.WIDTH;
-	    if(numBytes%dataBlock.WIDTH!=0){totalBlocks++;}
-	}
-	return add(totalBlocks);
+	return add(input/dataBlock.WIDTH);
+
 	
     }
     private int add(int numBlocks){
@@ -57,7 +43,7 @@ class RAM extends Thread{
 	    if(data[i] == null){
 		count = 1;
 		//Then we see if we have a hole big enough
-		while(count != numBlocks && data[count] == null){
+		while(data[count] == null && count != numBlocks){
 		    count++;
 		}
 		//Then we see if the hole is big enough
@@ -92,9 +78,8 @@ class RAM extends Thread{
 	//Loop through the data until we hit a null block or
 	//If we have two blocks back-to-back, then the start flag
 	//will be high, so we can stop reading our dataBlock
-	while(index<data.length && (data[index]!=null || data[index].start==true)){
-	    index++;   
-	    
+	while(data[index]!=null || data[index].start==true){
+	    index++;
 	}
     }
     /**
@@ -106,13 +91,15 @@ class RAM extends Thread{
 	//Loop through the data until we hit a null block
 	//If we have two blocks back-to-back, then the start flag
 	//will be high, so we can stop reading our dataBlock
-	while(index<data.length && (data[index]!=null || data[index].start==true)){
+	if(data!=null){
+	while(data[index]!=null || data[index].start==true){
 	    //Delete the current block
 	    data[index]=null;
 
 	    //Then increment and free space
 	    index++;
 	    spaceLeft+=dataBlock.WIDTH;
+	}
 	}
     }
    /**
