@@ -77,39 +77,125 @@ class memSim extends Thread{
     private static memSim initialUserPrompt(){
         Scanner scnr = new Scanner(System.in);
 
-        //Let's ask the user for system parameters
-        System.out.println("How many Hard Drives would you like?");
-        String input = scnr.nextLine();
-        int numHDD = Integer.parseInt(input);
-
-        System.out.println("And how big (in bytes) should each one be?");
-        input = scnr.nextLine();
-        int hDDSize = Integer.parseInt(input);
-
-        System.out.println("How many RAM sticks would you like?");
-        input = scnr.nextLine();
-        int numRAM = Integer.parseInt(input);
-
-        System.out.println("And how big (in bytes) should each one be?");
-        input = scnr.nextLine();
-        int rAMSize = Integer.parseInt(input);
-
-        System.out.println("Finally, how big (in bytes) would you like your CPU cache to be?");
-        input = scnr.nextLine();
-        int cacheSize = Integer.parseInt(input);
-
-	//Let's print the system config
-	System.out.println();
-	System.out.println("***********System Config**********");
-	System.out.println(numHDD+" number of hard drives, each "+hDDSize+" bytes big.");
-	System.out.println(numRAM+" sticks of RAM, each "+rAMSize+" bytes big.");
-	System.out.println("CPU cache is " + cacheSize + " bytes big.");
-	System.out.println("**********************************");
-	System.out.println();
-
+	//Let's first ask the user if they want to make their own system, or load one
+	System.out.println("Would you like to load a system, or configure your own?");
+	System.out.println("Type \u001B[33mLOAD\u001B[0m or \u001B[33mNEW\u001B[0m: ");
+	String choice = scnr.next();
+	if(choice.equalsIgnoreCase("Load")){
+	    //Firt we display the choices that the user can choose from
+	    System.out.println("\u001B[35mSystem 1:\u001B[0m");
+	    System.out.println("\t2 HDDs with size: 10240 bytes each");
+	    System.out.println("\t2 Sticks of RAM with size: 5120 bytes each");
+	    System.out.println("\t CPU Cache size: 1024 bytes");
+	    System.out.println("\tThis system has 3 partitions of data written to HDD 1, each 1024 bytes,");
+	    System.out.println("\tand 2 partitions of data written to HDD 2, each 2048 bytes,");
+	    System.out.println("\tand 1 partition written to each RAM stick, 2048 bytes big,");
+	    System.out.println("\tand there is nothing in the cache.");
 	    
-        //And finally initialize the system
-        return new memSim(numHDD,hDDSize,numRAM,rAMSize,cacheSize);
+	    System.out.println("\u001B[35mSystem 2:\u001B[0m");
+	    System.out.println("\t1 HDD with size: 102400 bytes");
+	    System.out.println("\t1 Stick of RAM with size: 51200 bytes");
+	    System.out.println("\t CPU Cache size: 2048 bytes");
+	    System.out.println("\tThis system has 10 partitions of 1024 bytes, and 5 of 2048 bytes written to the hard drive,");
+	    System.out.println("\tand 3 partitions of 1024 bytes, and 1 of 2048 bytes written to the RAM,");
+	    System.out.println("\tand there is nothing in the cache.");
+	    
+	    System.out.println("\u001B[35mSystem 3:\u001B[0m");
+	    System.out.println("\t1 HDD with size: 1024000 bytes");
+	    System.out.println("\t1 Stick of RAM with size: 51200 bytes");
+	    System.out.println("\t CPU Cache size: 2048 bytes");
+	    System.out.println("\tThere is no data written to any of the components in this system.");
+	    //Now we prompt the user to load a default system
+	    System.out.print("\u001B[33mPlease enter the number of your selection: \u001B[0m");
+	    int loadSelect = scnr.nextInt();
+	    if(loadSelect == 2){
+		//First initialize an empty memSim
+		memSim finger = new memSim(2,102400,2,51200,2048);
+
+		//Then write the specified data
+		for(int i=0;i<10;i++){
+		    finger.hardDrives[0].write(1024);
+		}
+		for(int i=0;i<5;i++){
+		    finger.hardDrives[0].write(2048);
+		}
+		for(int i=0;i<3;i++){
+		    finger.rams[0].write(1024);
+		}
+		finger.rams[0].write(2048);
+
+		//Then return 
+		return finger;
+	    }
+	    else if(loadSelect == 3){
+		return new memSim(1024000,1024000,1,51200,2048);
+	    }
+	    else{
+		//If we didn't understand, but the user wants to load, then we will load 1,
+		//or if the user just wants to load 1
+
+		//First initialize an empty memSim
+		memSim finger = new memSim(1,10240,1,51200,1024);
+
+		//Then write the specified data
+		for(int i=0;i<3;i++){
+		    finger.hardDrives[0].write(1024);
+		}
+		for(int i=0;i<2;i++){
+		    finger.hardDrives[1].write(2048);
+		}
+		
+		finger.rams[0].write(2048);
+		
+		finger.rams[1].write(2048);
+
+		//Then return 
+		return finger;
+	    }
+	    
+	}
+	else{
+	    //The user wants to make a new system, or they didn't type a correct reponse
+
+	    //If they typed a bad response, lets let them know, and continue with a new system
+	    if(!choice.equalsIgnoreCase("NEW")){
+		    System.out.println("\u001B[31mCould not understand your choice, reverting to creating a new system\u001B[0m");
+		}
+		
+	    //Let's ask the user for system parameters
+	    System.out.println("How many Hard Drives would you like?");
+	    String input = scnr.nextLine();
+	    int numHDD = Integer.parseInt(input);
+	    
+	    System.out.println("And how big (in bytes) should each one be?");
+	    input = scnr.nextLine();
+	    int hDDSize = Integer.parseInt(input);
+	    
+	    System.out.println("How many RAM sticks would you like?");
+	    input = scnr.nextLine();
+	    int numRAM = Integer.parseInt(input);
+	    
+	    System.out.println("And how big (in bytes) should each one be?");
+	    input = scnr.nextLine();
+	    int rAMSize = Integer.parseInt(input);
+	    
+	    System.out.println("Finally, how big (in bytes) would you like your CPU cache to be?");
+	    input = scnr.nextLine();
+	    int cacheSize = Integer.parseInt(input);
+	    
+	    //Let's print the system config
+	    System.out.println();
+	    System.out.println("***********System Config**********");
+	    System.out.println(numHDD+" number of hard drives, each "+hDDSize+" bytes big.");
+	    System.out.println(numRAM+" sticks of RAM, each "+rAMSize+" bytes big.");
+	    System.out.println("CPU cache is " + cacheSize + " bytes big.");
+	    System.out.println("**********************************");
+	    System.out.println();
+
+	
+	    //And finally initialize the system
+	    return new memSim(numHDD,hDDSize,numRAM,rAMSize,cacheSize);
+	}
     }
 
     /**
