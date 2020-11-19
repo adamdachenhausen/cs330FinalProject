@@ -139,9 +139,94 @@ class memSim extends Thread{
 
         //Process the response
         if(input == 1){
+	    //First let's prompt the user
+	    System.out.println("Where would you like to read the data from?");
+	    System.out.println("1.\tHard Drive");
+            System.out.println("2.\tRAM");
+            System.out.println("3.\tCPU Cache");
+            System.out.print("Please enter the number of your selection: ");
+
+            int userSubSelect1 = scnr.nextInt();
+	    int userSubSelect2 = userSubSelect1;
+	    int dataSelect1 = -1;
+	    int dataSelect2 = -1;
+
+	    if(userSubSelect1 == 1){
+                System.out.println("Please choose a drive from 1 - " + hardDrives.length);
+                System.out.print("Please enter the number of your selection: ");
+                int hddSelect = scnr.nextInt();
+		hddSelect--;
+
+		//Now we have to prompt the user to pick a chunk of data
+		hardDrives[hddSelect].print();
+		System.out.println("Please select one of the above partitions");
+		dataSelect1 = scnr.nextInt();
+
+            }
+            else if(userSubSelect1 == 2){
+                System.out.println("Please choose a stick of ram from 1 - " + rams.length);
+                System.out.print("Please enter the number of your selection: ");
+                int ramSelect = scnr.nextInt();
+		ramSelect--;
+		
+		//Now we have to prompt the user to pick a chunk of data
+		rams[ramSelect].print();
+		System.out.println("Please select one of the above partitions");
+		dataSelect1 = scnr.nextInt();
+
+            }
+            else if(userSubSelect1 == 3){
+		dataSelect1 = 1;
+            }
+	    
+	    //Now we prompt where the user wants to put this data
+	    while(userSubSelect1 == userSubSelect2){
+	    System.out.println("Where would you like to read the data from?");
+	    System.out.println("1.\tHard Drive");
+            System.out.println("2.\tRAM");
+            System.out.println("3.\tCPU Cache");
+            System.out.print("Please enter the number of your selection: ");
+
+	    userSubSelect2 = scnr.nextInt();
+
+	    if(userSubSelect2 == 1){
+                System.out.println("Please choose a drive from 1 - " + hardDrives.length);
+                System.out.print("Please enter the number of your selection: ");
+                int hddSelect = scnr.nextInt();
+		hddSelect--;
+
+		//Now we have to prompt the user to pick a chunk of data
+		hardDrives[hddSelect].print();
+		System.out.println("Please select one of the above partitions");
+		dataSelect2 = scnr.nextInt();
+
+            }
+            else if(userSubSelect2 == 2){
+                System.out.println("Please choose a stick of ram from 1 - " + rams.length);
+                System.out.print("Please enter the number of your selection: ");
+                int ramSelect = scnr.nextInt();
+		ramSelect--;
+		
+		//Now we have to prompt the user to pick a chunk of data
+		rams[ramSelect].print();
+		System.out.println("Please select one of the above partitions");
+		dataSelect2 = scnr.nextInt();
+
+            }
+            else if(userSubSelect2 == 3){
+		dataSelect2 = 1;
+            }
+
+	    //We make sure that the user didn't try to move from A to A
+	    if(userSubSelect1==userSubSelect2 && dataSelect1==dataSelect2){
+		System.out.println("\u001B[41mError, you cannot move data from one place to the same place. Please try again\u001B[0m");
+	    }
+	    }
+	    
             start = System.currentTimeMillis();
             //Here we are going to process where the user wants to move the data from and to
-
+	    
+	    
             //Then we can report the statistics
             end = System.currentTimeMillis();
 
