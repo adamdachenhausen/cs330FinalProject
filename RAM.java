@@ -72,13 +72,15 @@ class RAM extends Thread{
     Reads data from this, and returns it
     Precondition the index is a datablock with .start = true
     @param the index of the starting array index
-    @return 1, when the program has finished reading
+    @return the size of the chunk read, or -1 if error
      **/
     public int read(int index){
         //Loop through the data until we hit a null block or
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
+	    if(data[index]!=null){
+	    int output = data[index].size;
             while(index<data.length && data[index]!=null){
                 index++;  
                 
@@ -94,8 +96,10 @@ class RAM extends Thread{
                     break;
                 }
             }
+	    return output;
+	    }
         }
-        return 1;
+        return -1;
     }
 
     /**

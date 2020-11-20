@@ -102,7 +102,7 @@ class HDD extends Thread{
     Reads data from this
     Precondition: index is a dataBlock where .start is true.
     @param index The index of the array where the data block starts
-    @return 1, when the program has finished reading
+    @return the size of the chunk read, otherwise -1
      **/
     public int read(int index){
 
@@ -110,6 +110,8 @@ class HDD extends Thread{
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
+	    if(data[index]!=null){
+		int output = data[index].size;
             while(index<data.length && data[index]!=null){
                 index++;  
                 
@@ -125,8 +127,10 @@ class HDD extends Thread{
                     break;
                 }
             }
+	    return output;
+	    }
         }
-        return 1;
+        return -1;
     }
 
     /**
