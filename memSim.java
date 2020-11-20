@@ -80,7 +80,7 @@ class memSim extends Thread{
 	//Let's first ask the user if they want to make their own system, or load one
 	System.out.println("Would you like to load a system, or configure your own?");
 	System.out.println("Type \u001B[33mLOAD\u001B[0m or \u001B[33mNEW\u001B[0m: ");
-	String choice = scnr.next();
+	String choice = scnr.nextLine();
 	if(choice.equalsIgnoreCase("Load")){
 	    //Firt we display the choices that the user can choose from
 	    System.out.println("\u001B[35mSystem 1:\u001B[0m");
