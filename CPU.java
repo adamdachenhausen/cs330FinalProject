@@ -31,10 +31,10 @@ class CPU extends Thread{
        there should be no delay as this is stored on RAM, and the cache
        in a real system will be much faster
 
-       @return the data read in a byte array
+       @return the size of the cache read
      **/
-    public byte[] read(){
-	return cache1;
+    public int read(){
+	return cache1Size;
     }
     /**
        Writes input into the cache.
@@ -44,12 +44,12 @@ class CPU extends Thread{
        There will also not be any delay (other than overhead) as these are the
        fastest memory locations.
 
-       @param input the data to be written to the cache
+       @param numBytes, the number of bytes to be written to the cache
        @return 1 if the method is done, 0 if error occurs
      **/
-    public int write(byte[] input){
-	for(int i = 0; i<input.length;i++){
-	    add(input[i]);
+    public int write(int numBytes){
+	for(int i = 0; i<numBytes;i++){
+	    add((byte)0);
 	}
 	return 1;
     }
