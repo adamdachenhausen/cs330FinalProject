@@ -43,7 +43,7 @@ class HDD extends Thread{
         if(numBytes > spaceLeft){return 0;}
 
         //Now let's reserve our space and then write our data
-        spaceLeft =- numBytes;
+        spaceLeft = spaceLeft - numBytes;
 
         //Now we call our helper method
         int totalBlocks;
@@ -89,10 +89,8 @@ class HDD extends Thread{
                     return 1;
                 }
                 //If we got here, that means we don't have a hole big enough, so let's reset count
-                //and skip those value by adding (count - 1) + i
-                count -= 1;
-                i += count;
-                count = 0;
+                
+                count = i;
 
             }
         }
