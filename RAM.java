@@ -87,10 +87,10 @@ class RAM extends Thread{
                 
                 try{
                     sleep(1);
-                }
+		}
                 catch(Exception e){
                     
-                }
+		}
                 
                 //Now we check the next position if it is a starter, and we can exit
                 if(data[index]!=null && data[index].start==true){
@@ -135,7 +135,7 @@ class RAM extends Thread{
             for(int i=0;i<data.length;i++){
                 //Then if we encounter a dataBlock that is a start, print it
                 if(data[i]!=null && data[i].start == true){
-                    System.out.println(i+": "+data[i].size+" bytes big");
+                    System.out.println(i+": "+data[i].size*dataBlock.WIDTH+" bytes big");
                 }
             }
         }

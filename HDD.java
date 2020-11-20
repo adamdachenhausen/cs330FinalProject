@@ -116,7 +116,7 @@ class HDD extends Thread{
                 index++;  
                 
                 try{
-                    sleep(1);
+                    sleep(2);
                 }
                 catch(Exception e){
                     
@@ -163,7 +163,7 @@ class HDD extends Thread{
             for(int i=0;i<data.length;i++){
                 //Then if we encounter a dataBlock that is a start, print it
                 if(data[i]!=null && data[i].start == true){
-                    System.out.println(i+": "+data[i].size+" bytes big");
+                    System.out.println(i+": "+data[i].size*dataBlock.WIDTH+" bytes big");
                 }
             }
         }
