@@ -245,7 +245,7 @@ class memSim extends Thread{
 
 		//Now we have to prompt the user to pick a chunk of data
 		hardDrives[hddSelect].print();
-		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
+		System.out.print("\u001B[33mPlease select one of the above partitions: \u001B[0m");
 		dataSelect1 = scnr.nextInt();
 
             }
@@ -257,7 +257,7 @@ class memSim extends Thread{
 		
 		//Now we have to prompt the user to pick a chunk of data
 		rams[ramSelect].print();
-		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
+		System.out.print("\u001B[33mPlease select one of the above partitions: \u001B[0m");
 		dataSelect1 = scnr.nextInt();
 
             }
@@ -283,7 +283,7 @@ class memSim extends Thread{
 
 		//Now we have to prompt the user to pick a chunk of data
 		hardDrives[hddSelect].print();
-		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
+		System.out.print("\u001B[33mPlease select one of the above partitions: \u001B[0m");
 		dataSelect2 = scnr.nextInt();
 
             }
@@ -295,7 +295,7 @@ class memSim extends Thread{
 		
 		//Now we have to prompt the user to pick a chunk of data
 		rams[ramSelect].print();
-		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
+		System.out.print("\u001B[33mPlease select one of the above partitions: \u001B[0m");
 		dataSelect2 = scnr.nextInt();
 
             }
@@ -338,7 +338,7 @@ class memSim extends Thread{
 
 		//Now we have to prompt the user to pick a chunk of data
 		hardDrives[hddSelect].print();
-		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
+		System.out.print("\u001B[33mPlease select one of the above partitions: \u001B[0m");
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action
@@ -363,7 +363,7 @@ class memSim extends Thread{
 
 		//Now we have to prompt the user to pick a chunk of data
 		rams[ramSelect].print();
-		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
+		System.out.print("\u001B[33mPlease select one of the above partitions: \u001B[0m");
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action
@@ -481,7 +481,7 @@ class memSim extends Thread{
 
 		//Now we have to prompt the user to pick a chunk of data
 		hardDrives[hddSelect].print();
-		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
+		System.out.print("\u001B[33mPlease select one of the above partitions: \u001B[0m");
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action		
@@ -503,7 +503,7 @@ class memSim extends Thread{
 		
 		//Now we have to prompt the user to pick a chunk of data
 		rams[ramSelect].print();
-		System.out.print("\u001B[33mPlease select one of the above partitions\u001B[0m");
+		System.out.print("\u001B[33mPlease select one of the above partitions: \u001B[0m");
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action
