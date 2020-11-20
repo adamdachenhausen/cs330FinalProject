@@ -15,9 +15,7 @@ CLASSES = \
         HDD.java \
 	RAM.java \
 	memSim.java \
-	platter.java \
-	process.java \
-	processType.java
+	dataBlock.java
 
 default: classes
 
