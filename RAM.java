@@ -28,7 +28,7 @@ class RAM extends Thread{
         if(input > spaceLeft){return 0;}
 
         //Now let's reserve that space, and write our data
-        spaceLeft =- input;
+        spaceLeft = spaceLeft - input;
 
         //Now we call our helper method
         return add(input/dataBlock.WIDTH);
@@ -62,9 +62,6 @@ class RAM extends Thread{
                     return 1;
                 }
                 //If we got here, that means we don't have a hole big enough, so let's reset count
-                //and skip those values by adding (count - 1) and i
-                count -= 1;
-                i += count;
                 count = 0;
             }
         }
