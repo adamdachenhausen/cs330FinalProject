@@ -568,6 +568,7 @@ class memSim extends Thread{
         System.out.println("move");
         System.out.println("read");
         System.out.println("write");
+	System.out.println("delete");
         System.out.println("help");
         System.out.println("exit");
         System.out.println("For help with a specific command type [command]");
@@ -590,7 +591,7 @@ class memSim extends Thread{
 		System.out.println("Writes data to specified location");
 	    }
 	    else if(input.equalsIgnoreCase("delete")){
-		System.out.println("Deletes data from the specified drive");
+		System.out.println("Deletes data from the specified component");
 	    }
 	    else if(input.equalsIgnoreCase("help")){
 		System.out.println("Displays the help message");
