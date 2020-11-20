@@ -75,14 +75,30 @@ class RAM extends Thread{
     Reads data from this, and returns it
     Precondition the index is a datablock with .start = true
     @param the index of the starting array index
+    @return 1, when the program has finished reading
      **/
-    public void read(int index){
+    public int read(int index){
         //Loop through the data until we hit a null block or
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
-        while(data[index]!=null || data[index].start==true){
-            index++;
+        if(data!=null){
+            while(index<data.length && data[index]!=null){
+                index++;  
+                
+                try{
+                    sleep(1);
+                }
+                catch(Exception e){
+                    
+                }
+                
+                //Now we check the next position if it is a starter, and we can exit
+                if(data[index]!=null && data[index].start==true){
+                    break;
+                }
+            }
         }
+        return 1;
     }
 
     /**

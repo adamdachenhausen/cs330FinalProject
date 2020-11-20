@@ -344,7 +344,8 @@ class memSim extends Thread{
 		//Then do the action
 		start = System.currentTimeMillis();
 
-                hardDrives[hddSelect].read(dataSelect);
+		//We don't need this return value for anything, we just need memSim to wait
+                int x = hardDrives[hddSelect].read(dataSelect);
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
@@ -367,7 +368,7 @@ class memSim extends Thread{
 		int dataSelect = scnr.nextInt();
 
 		//Then do the action
-                rams[ramSelect].read(dataSelect);
+                int x = rams[ramSelect].read(dataSelect);
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
@@ -380,7 +381,8 @@ class memSim extends Thread{
             else if(userSubSelect == 3){
                 start = System.currentTimeMillis();
 
-                cpu.read();
+                //We don't need this return value for anything, we just need memSim to wait
+                byte[] x = cpu.read();
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();

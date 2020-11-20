@@ -104,21 +104,31 @@ class HDD extends Thread{
     Reads data from this
     Precondition: index is a dataBlock where .start is true.
     @param index The index of the array where the data block starts
+    @return 1, when the program has finished reading
      **/
-    public void read(int index){
+    public int read(int index){
 
         //Loop through the data until we hit a null block or
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
-            while(index<data.length && (data[index]!=null || !data[index].start==true)){
-                index++;   
-		try{
-		    sleep(1);
-		}
-		catch(Exception e){}
+            while(index<data.length && data[index]!=null){
+                index++;  
+                
+                try{
+                    sleep(1);
+                }
+                catch(Exception e){
+                    
+                }
+                
+                //Now we check the next position if it is a starter, and we can exit
+                if(data[index]!=null && data[index].start==true){
+                    break;
+                }
             }
         }
+        return 1;
     }
 
     /**
