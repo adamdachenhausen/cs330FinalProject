@@ -111,9 +111,12 @@ class HDD extends Thread{
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
-            while(index<data.length && (data[index]!=null || data[index].start==true)){
+            while(index<data.length && (data[index]!=null || !data[index].start==true)){
                 index++;   
-
+		try{
+		    sleep(1);
+		}
+		catch(Exception e){}
             }
         }
     }
