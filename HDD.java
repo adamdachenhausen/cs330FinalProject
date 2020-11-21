@@ -12,14 +12,18 @@ class HDD extends Thread{
     //Our array of data
     private dataBlock[] data;
 
+    //
+    int delay;
     /**
     Sets up a hard drive to be added to the system.
 
     @param size, the size in bytes of this
+    @param hddDelay, the time it takes handle 1 MB of data
      **/
-    public HDD(int size){
+    public HDD(int size, int hddDelay){
         this.size=size;
         this.spaceLeft=size;
+	delay = hddDelay;
         int totalBlocks;
         if(size == 0){totalBlocks=0;}
         else if(size<dataBlock.WIDTH){totalBlocks = 1;}
@@ -53,6 +57,9 @@ class HDD extends Thread{
             totalBlocks = numBytes/dataBlock.WIDTH;
             if(numBytes%dataBlock.WIDTH!=0){totalBlocks++;}
         }
+	try{
+	    sleep(delay*(numBytes/memSim.MB));}
+	catch(Exception e){}
         return add(totalBlocks);
     }
 
@@ -105,13 +112,15 @@ class HDD extends Thread{
     @return the size of the chunk read, otherwise -1
      **/
     public int read(int index){
-
         //Loop through the data until we hit a null block or
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
             if(data[index]!=null){
                 int output = data[index].size;
+		try{
+		    sleep(delay*(output/memSim.MB));}
+		catch(Exception e){}
                 while(index<data.length && data[index]!=null){
                     index++;  
 
@@ -143,6 +152,13 @@ class HDD extends Thread{
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
+	    if(data[index]!=null && data[index].start == true){
+		int numBytes = data[index].size;
+		try{
+		    sleep(delay*(numBytes/memSim.MB));}
+		catch(Exception e){}
+		
+	    }
             while(index<data.length && data[index]!=null){
                 //Delete the current block
                 data[index] = null;
@@ -150,6 +166,9 @@ class HDD extends Thread{
                 //Then increment and free space
                 index++;
                 spaceLeft+=dataBlock.WIDTH;
+		if(data[index]!=null && data[index].start == true){
+		    break;
+		}
             }
         }
     }

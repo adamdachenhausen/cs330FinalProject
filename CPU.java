@@ -14,15 +14,20 @@ class CPU extends Thread{
     
     //THe size of the first cache
     int cache1Size;
+
+    //The time it takes to write 1 MB
+    int delay;
     /**
        Constructor for the CPU class
        @param numCores the number of cores that this should have (currently not supported)
        @param cacheSize the size of the cache of this
+       @param cacheDelay, the time it takes for this to write 1 MB
      **/
-    public CPU(int numCores, int cacheSize){
+    public CPU(int numCores, int cacheSize, int cacheDelay){
      cores = numCores;
      cache1 = new byte[cacheSize];
      cache1Size = cacheSize;
+     delay = cacheDelay;
      cache1Last = -1; //We hold the index of the last item in the array
     }
     /**
@@ -34,6 +39,10 @@ class CPU extends Thread{
        @return the size of the cache read
      **/
     public int read(){
+	try{
+	    sleep(delay*(cache1Size/memSim.MB));
+	}
+	catch(Exception e){}
 	return cache1Size;
     }
     /**
@@ -48,6 +57,10 @@ class CPU extends Thread{
        @return 1 if the method is done, 0 if error occurs
      **/
     public int write(int numBytes){
+	try{
+	    sleep(delay*(cache1Size/memSim.MB));
+	}
+	catch(Exception e){}
 	for(int i = 0; i<numBytes;i++){
 	    add((byte)0);
 	}
@@ -77,6 +90,10 @@ class CPU extends Thread{
 	for(int i=0; i<numBytes;i++){
 	    cache1Last++;
 	}
+	try{
+	    sleep(delay*(cache1Size/memSim.MB));
+	}
+	catch(Exception e){}
     }
     /**
 
