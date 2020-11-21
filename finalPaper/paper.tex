@@ -301,6 +301,89 @@ size but a different access time.
 
 Insert all the data gathered by the simulator and from sources here.
 
+Latency Time in the all 3 major components being implemented in the simulator vary accordingly to their sizes,
+that becomes the reason why cache is the fastest between RAM and the HDD.
+
+Starting with the hardrive latency time for the input and output of data as it is the largest size of all memories here.
+The latency of a hard drive is a combination of it RPM, Seek Time and Transfer time. In the simulator that we
+implemented, we didnt go into details to a point that we offer the RPM, Seek time and the Transfer time as
+a variable to the user. However we implemented the HDD on data blocks instead of platters, which acted as
+partitions.
+According to Eric Shanks from ithollow.com, the following were the Hard Drive latencies in 2013, given the different
+RPM.
+
+\begin{tabular}{|c|c|}
+  \hline
+  RPMs & Rotational Latency(ms)\\
+  \hline
+  5400 & 11 ms\\
+  \hline
+  7200 & 8 ms\\
+  \hline
+  10000 & 6 ms\\
+  \hline
+  15000 & 4 ms\\
+  \hline
+\end {tabular}
+
+Seek time; which is the time it takes for the Read-Write to move up and down the platter.
+The Seek time itself is comprised of a series of phase times. The first being the acceleration phase,
+the read write arm starts to move, then comes the coasting phase when the arm is moving at full speed. This
+is followed by the deceleration phase where the read write arm slows down. Then finally comes the
+settling phase as the read write head stops right at the data it needs.
+The average seek time of hardrives of size 300 GB to 1TB ranged from an average time of 4ms to 9ms.
+(source: pages.cs.wisc.edu - Operating Systems: Three Easy peices peices - Remzi Arpaci, Andrea Arpaci).
+
+The last part of total I/O latency for hard drive is the transfer time, which is the time it takes the
+data to be transfer from or to the Read-Write head. Compared to Rotational Latency and seek time, transfer
+time is insignificant, given that the mechanical movements take more time than data movement which is more of
+movement of energy packets.
+
+After all this we come to an equation:
+
+I/O Latency Time of HDD = Rotational Latency + Seek Time + Latency Time 
+
+In an extensive calculation done by Remzi Arpaci-Dusseau and Andrea Arpaci-Dusseau, in the Operating Systems: Three
+easy peices, two hard drives one Cheetah, and the other being Barracuda was compared for the I/O latency time. The size of
+data being dealt with was 100 MB. However, another controller in the comparison was whether the data read or writing
+was sequential or random. Sequential meant that large chunks of data are just being read and written which are in
+sequence, whereas the Random transfer just meant Random data was selected from a read issue some where on the disk,
+which is how the data for applications work. Mind it that the data we represented in the simulator was also sequential
+and not random, as the hardrive implemented was built of data blocks.
+
+The I/O Latency time along with other statistics mentioned above was (taken from the source): 
+
+
+\begin{tabular}{|l|r|r|}
+  \hline
+  HDD & Cheetah 15K.5 & Barracuda\\
+  \hline
+  Capacity & 300 GB & 1 TB\\
+  \hline
+  RPM & 15,000 & 7,200\\
+  \hline
+  Average Seek & 4 ms & 9ms\\
+  \hline
+  Platters & 4 & 4\\
+  \hline
+  T I/O Random & 6 ms & 13.2 ms\\
+  \hline
+  T I/O Sequential & 800 ms & 900 ms
+  \hline
+\end {tabular}
+
+## In our simulation ##
+
+Now coming to our second component RAM and how the data tranfer works in their and what delays take place.
+RAM is a way smaller storage device compared to HDD and is alsos volatile, but that makes it quicker than
+the HDD. The Latency of data movement in RAM is comprised primarily of CAS latency which translates to
+Column Address strobe or signal latency. Since the RAM is built upon columns or cells of memory,
+CAS latency means how much time it would take the RAM to access the memory cells, read the data and make it
+available as an output.
+
+
+
+
 
 Explain any terms as needed (only if not already). 
 
@@ -317,6 +400,11 @@ Insert conclusions here.
 \singlespace
 \bibliographystyle{abbrv}
 \bibliography{references}
+www.ithollow.com/2013/11/18/disk-latency-concepts/
+pages.sc.wisc.edu/~remzi/OSFEP/file-disks.pdf
+www.tomshardware.com/reviews/cas-latency-ram-cl-timings-glossary-definition,6011.html
+
+
 
 % tell latex we're done.  Anything beyond this line will be ignored.
 \end{document}
