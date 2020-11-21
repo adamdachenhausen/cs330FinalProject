@@ -234,15 +234,15 @@ class memSim extends Thread{
 	    input = scnr.nextLine();
 	    int cacheSize = Integer.parseInt(input);
 
-	    System.out.println("");
+	    System.out.println("How long would you like it to take in seconds, to read/write to the cache?");
 	    input = scnr.nextLine();
 	    int cacheDelay = Integer.parseInt(input);
 
-	    System.out.println("");
+	    System.out.println("How long would you like it to take in seconds, to read/write to the RAM?");
 	    input = scnr.nextLine();
 	    int ramDelay = Integer.parseInt(input);
 
-	    System.out.println("Finally, ");
+	    System.out.println("Finally, how long would you like it to take in seconds, to read/write to a HDD?");
 	    input = scnr.nextLine();
 	    int hddDelay = Integer.parseInt(input);
 	    
