@@ -11,9 +11,18 @@ class RAM extends Thread{
     //The array to hold our data
     dataBlock[] data;
 
-    public RAM(int size){
+    //The time it takes to write 1 MB
+    private int delay;
+
+    /**
+       Constructor for RAM object
+       @param size the size of this
+       @param ramDelay the time it take to write 1 MB
+     **/
+    public RAM(int size, int ramDelay){
         this.size = size;
         this.spaceLeft = size;
+	delay = ramDelay;
 
         data = new dataBlock[size/dataBlock.WIDTH];
     }
@@ -30,6 +39,11 @@ class RAM extends Thread{
         //Now let's reserve that space, and write our data
         spaceLeft = spaceLeft - input;
 
+	try{
+	    sleep(delay*(input/memSim.MB));
+	}
+	catch(Exception e){}
+	
         //Now we call our helper method
         return add(input/dataBlock.WIDTH);
 
@@ -80,29 +94,26 @@ class RAM extends Thread{
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
 	    if(data[index]!=null){
-	    int output = data[index].size;
-            while(index<data.length && data[index]!=null){
-                index++;  
-                
-                try{
-                    sleep(1);
+		int output = data[index].size;
+		try{
+		    sleep(delay*(output/memSim.MB));
 		}
-                catch(Exception e){
-                    
+		catch(Exception e){}
+		while(index<data.length && data[index]!=null){
+		    index++;  
+		    
+		    //Now we check the next position if it is a starter, and we can exit
+		    if(data[index]!=null && data[index].start==true){
+			break;
+		    }
 		}
-                
-                //Now we check the next position if it is a starter, and we can exit
-                if(data[index]!=null && data[index].start==true){
-                    break;
-                }
-            }
-	    return output;
+		return output;
 	    }
-        }
-        return -1;
+	}
+	return -1;
     }
-
-    /**
+	
+	/**
     Deletes data from this
     Precondition the index is a datablock with .start = true
     @param the index of the starting point to delete from
@@ -112,6 +123,12 @@ class RAM extends Thread{
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
+	    if(data[index]!=null){
+		try{
+		    sleep(delay*(data[index].size/memSim.MB));
+		  }
+		catch(Exception e){}
+	    }
             while(index<data.length && data[index]!=null){
                 //Delete the current block
                 data[index]=null;
