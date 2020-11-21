@@ -430,7 +430,7 @@ partitions.
 Rotational latency of a hard drive is how long does it take a platter to spin, as after all it is a mechanical
 component bounded by a certain speed.
 According to \cite{diskLatency} 
-
+\\\\
 \begin{tabular}{|c|c|}
   \hline
   RPMs & Rotational Latency(ms)\\
@@ -444,7 +444,7 @@ According to \cite{diskLatency}
   15000 & 4 ms\\
   \hline
 \end {tabular}
-
+\\\\
 Seek time; which is the time it takes for the Read-Write to move up and down the platter.
 The Seek time itself is comprised of a series of phase times. The first being the acceleration phase,
 the read write arm starts to move, then comes the coasting phase when the arm is moving at full speed. This
@@ -471,8 +471,7 @@ which is how the data for applications work. Mind it that the data we represente
 and not random, as the hard drive implemented was built of data blocks.
 
 The I/O Latency time along with other statistics mentioned above was (taken from the source \cite{three}): 
-
-
+\\\\
 \begin{tabular}{|l|rr|}
   \hline
   HDD & Cheetah 15K.5 & Barracuda\\
@@ -524,9 +523,7 @@ These two different situations can yield a very different latency period.
 
 As of 2012 these were some of the Latencies, that includes different operation on a low level
 and at the high level.(Source: \cite {Latencies})
-
-
-
+\\\\
 \begin{tabular}{|l|c|}
   \hline
   L1 cache reference & 0.5 ns\\
@@ -556,9 +553,7 @@ and at the high level.(Source: \cite {Latencies})
   Read 1 MB sequentially from the disk & 20000 us / 20 ms\\ 
   \hline    
 \end {tabular}
-
-
-
+\\\\
 Not all of this information, especially concerning network is that closely relevant to our field of study, but
 we can certainly see the latencies that included reading, writing and referencing from the CPU caches, memory
 and the drives had a huge difference in between them. The low level operations that took place within the
