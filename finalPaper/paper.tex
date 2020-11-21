@@ -81,7 +81,7 @@ The Java Based Memory Latency Simulator was developed to provide a way to
 study how long it takes to move bytes of data around a common computer
 system containing hard drive disks, random access memory, and a central
 processing unit with cache memory. This project aims first to create a modular
-system, that could be used to simulate data movement computer components, then
+system, that could be used to simulate data movement between computer components, then
 second to use that simulator and upgrade it to allow data to be collected about
 data latency. We first focused on creating data structures that represented various
 components of the computer, like a hard drive disk. Then we created a dual purpose
@@ -106,13 +106,13 @@ it is what we, the authors are most comfortable with.
 This simulator is designed to simulate data transfer from one system component 
 to another. For example, from the hard drive disk, to the main memory. 
 
-In Section~\ref{sec:memlate} we discuss abstractly how the memory latency 
+In section~\ref{sec:memlate} we discuss abstractly how the memory latency 
 simulator works, and why we built it. Section~\ref{sec:build} describes
 how to build and run the simulator. In section~\ref{sec:expstats} we explain
 all the types of information collected from the simulator. Then, in section~\ref{sec:data}
 we present the actual data collected from the simulator, as well as actual 
 real world data. Section~\ref{sec:disc} goes on to explain any discrepancies 
-found between our data and the real world collected data. Finally, in~\ref{sec:conclusions}
+found between our data and the real world collected data. Finally, in section~\ref{sec:conclusions}
 we summarize our results, as well as report what
 we have learned, and suggest how this simulator could be better
 improved or used. 
@@ -128,7 +128,7 @@ on blocks of data, not individual bytes. The simulator consists of four
 primary parts: memSim, which is essentially the controller; a CPU with one level of cache;
 one or more sticks or RAM; and one or more hard drive disks.
 
-Each component's (CPU, RAM, HDD), storage is represented with a simple data structure called
+Each component's (CPU, RAM, HDD), storage is represented with a simple array of a data structure called
 a dataBlock, which represents 1024 bytes. The user then has options to handle data on any
 component via the memSim terminal interface.
 
@@ -197,8 +197,7 @@ project is protected under the MIT License, so proceed at your own risk.
 \end{itemize}
 Upon running the simulator, you will be prompted for a variety of 
 simulator parameters. Each of these is crucial, and cannot be left blank.
-
-The first thing the simulator will ask you is
+The first thing the simulator will ask you is:
 {\singlespace
 \begin{verbatim}
 Is this text blue? Y/n
@@ -329,6 +328,9 @@ the last n bytes are the ones stored in the cache, where n is the size of the ca
 Deleting data is very similar to reading data, as they are essentially the same operation.
 In this case, every iteration through the stored data, the current index is set to null.
 
+In the CPU cache, deleting data move the last added pointer back, so you can overwrite the data
+deleted.
+
 \subsection*{Moving Data}
 A move is a combination of the three aforementioned commands. First, the simulator will prompt
 like a read from where to read, and then delete the data from. Then the simulator will prompt
@@ -343,66 +345,68 @@ this is not the case.
 The primary path of study through the simulator was to gather the statistics about the
 events, latencies and delays that take place in the very low level of memory management.
 Memory management as the name suggests is the act of managing memory in the low level of
-a computer. Often represented by allocation of portions and freeing them once they are
+a computer system. Often represented by allocation of chunks of data and freeing them once they are
 done being used.
 
 If we consider memory management as the super class, then the statistics that we gathered, such
 as the latency of memory regulation are the one of the aspects of the memory management.
 The latency is the delay or the time that it takes the data to be read from memory.
-Since the movement of this data is bound to be within the speed of light,
+Since the movement of this data is bound to be within the speed of light, and furthermore
 the medium it is traveling in, this means that even though that speed is above human physical
 comprehension but still there would be a delay, based on the size of the data.
 
-We gathered the latency time, which is the time delay taking place in data transfer,reading and
+We gathered the latency time, which is the time delay taking place in data transfer, reading and
 writing at the lowest level of memory management. This was the primary statistic for us to consider
 when building the simulator.
 
 To represent this level of memory management the simulator was designed to hold some key components.
-These components are those linked directly with the memory usage,including the
-central processing unit (CPU), the Hard Drive and the RAM sticks.
+These components are those linked directly with the memory usage, including the
+central processing unit (CPU), the Hard Drive Disk (HDD) and the Random Access Memory (RAM) sticks.
 
-The CPU further consists of cache, modern day powerful CPUS consisted of 2 level of caches, L1 and L2,
+The CPU further consists of cache, modern day powerful CPUs consist of 3 level of caches, L1, L2, and L3.
 where L1 is very small compared to L2 in memory. L1 ranging from 2KB to 64KB, whereas the second level
-is in the range of 256 KB to 2 MB. Cache is used for quicker access by the CPU of the data that it
+is in the range of 256 KB to 2 MB, but much slower than L1. L3 can be anywhere from 4MB to 50MB, but much slower than L2.\cite{makeuseof}
+Cache is used for quicker access by the CPU of the data that it
 frequently uses. Cache stores that data and thus decreasing the latency. However, in the simulator we
 implemented a single level of cache with a variable size, which is input by the user.
 
 Further down the hierarchy of memory management, we have the RAM, which is relatively slower to CPU but bigger
-in size by quite some margin. The RAM, which translates to Random Access Memory is a volatile form of memory
-built by several memory cells. There are two types of RAMs; DRAM and SRAM, even thought we did not distinguish
+in size by quite some margin. The RAM is a volatile form of memory
+built by several memory cells. There are two types of RAMs; DRAM and SRAM, although we did not distinguish
 between them in our simulator. Given that the RAM is slower compared to the CPU(cache) it takes time to read
 and move data off it. In the simulator we kept the size and the number of RAM sticks a variable, so
-the user inputs the value for each. Since the RAM is volatile it loses all the data it has on it, once we
-take the power off it. As soon as the power is turned on, the alot of important section of OS is read from
+the user inputs the value for each. Since the RAM is volatile it loses all the data it has on it, once it
+stops being powered. As soon as the power is turned on, the most important section of the operating system(OS) is read from
 the hard drive and put onto the RAM so some important functions can be accessed quickly instead of reading
-it off the hard drive which is way slower. This OS data along with other make up alot the RAM usage when the
+it off the hard drive which is slower. This OS data along with other make up a lot the RAM usage when the
 computer is running. Running other process lead to more writing and reading off the RAM which leads to different
 delays.
 
-Finally comes the Hard Drive, which is the biggest form of permanent memory but the slowest one. It is
+Finally, the hard drive, which is the biggest form of permanent memory but the slowest one. It is
 extremely large compared to both RAM and cache. Almost all the software including the OS is stored on
 the HDD. HDDs have evolved in many ways over the course of times, making them quicker, but they have
-remained slower compared to RAM and CPU always. In our simulator we have built an HDD on arrays of bytes,
-just like the RAM and cache. 
+still remained slower compared to RAM and CPU cache. In our simulator we have built an HDD on an array of dataBlocks,
+just like the RAM.
 
 The movement, reading and writing of the data to any of the components was timed, which helped
-us to  collect the major statistics we needed  here. The latency which was  going to be the
-major finding of the simulation was calculated through a stopwatch implemented
-inside our program. As we kept clocking, the time was a projected ratio of the time that was supposed to
+us to  collect the major statistics we needed here. The latency which was going to be the
+main focus of the simulation was calculated through a stopwatch implemented
+inside our program. As we kept gathering data, the time was a projected ratio of the time that was supposed to
 take place on the basic level. Thus, the time gathered was reduced to the ratio fully suited for the
 level of details being dealt with in the simulator.
 
-The Memory, which was the core component of the simulator and the primary part of each component
-was represented by arrays of byte type. As the simulation went on, these arrays in each of the components
+The memory, which was the core component of the simulator and the primary part of each component
+was represented by arrays of dataBlocks. As the simulation went on, the array in each of the components
 were modified depending upon the event taking place. This modification gave us the data for how the size
 of data acts proportional to the latency and the delay in the transfer, writing and reading of data. The size
 of data was one of the major field of the statistics being gathered. We studied upon the size of the
 data as how much of variance does it brings to the clock.
 
-As the variables we had in the simulation were the number of Cores in the CPU,
+As the variables we had in the simulation were the number of cores in the CPU,
 the number of hard drives, the size of hard drive in bytes, the number of RAM sticks, the size of
-each of the RAM stick and the size of the CPU Cache, we kept a record of each combination. However,
-even with the CPU having a variable number of cores, for the path of study being conducted, we maintained
+each of the RAM stick and the size of the CPU Cache, and the time it took to read or write one megabyte to each component,
+we kept a record of each combination. However, even with the CPU having a variable number of cores,
+for the path of study being conducted, we maintained
 it to be 1 throughout the study. The simulator was structured to take in a value for each of the variables,
 except the number of cores. This led to new fields of data for statistics being gathered.
 The size of cache in the CPU, which is a small form of memory and the quickest one out of RAM and HDD, was
