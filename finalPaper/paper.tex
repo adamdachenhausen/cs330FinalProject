@@ -122,13 +122,15 @@ improved or used.
 
 \subsection{Abstract Definition}
 The goal of this project was to create a Java based simulator that will allow
-semi-low access to artificial data so the user could gather statistics and trends
-from moving this data around the artificial system. The simulator consists of four
+access to artificial data so the user could gather statistics and trends
+from moving this data around the artificial system. The simulator allows simple operations
+on blocks of data, not individual bytes. The simulator consists of four
 primary parts: memSim, which is essentially the controller; a CPU with one level of cache;
 one or more sticks or RAM; and one or more hard drive disks.
 
-Each component's (CPU, RAM, HDD), storage is represented with a byte array.
-The user then has options to handle data on any component via the memSim terminal interface.
+Each component's (CPU, RAM, HDD), storage is represented with a simple data structure called
+a dataBlock, which represents 1024 bytes. The user then has options to handle data on any
+component via the memSim terminal interface.
 
 \subsection{Primary Audience}
 Today, there are many levels of abstraction between the high-level user and their hardware.
