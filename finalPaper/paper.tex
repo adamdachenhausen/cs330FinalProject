@@ -450,7 +450,7 @@ the read write arm starts to move, then comes the coasting phase when the arm is
 is followed by the deceleration phase where the read write arm slows down. Then finally comes the
 settling phase as the read write head stops right at the data it needs.
 The average seek time of hardrives of size 300 GB to 1TB ranged from an average time of 4ms to 9ms.
-(source: \cite{tbree} )
+(source: \cite{three} )
 
 The last part of total I/O latency for hard drive is the transfer time, which is the time it takes the
 data to be transfer from or to the Read-Write head. Compared to Rotational Latency and seek time, transfer
@@ -461,7 +461,7 @@ After all this we come to an equation:
 
 I/O Latency Time of HDD = Rotational Latency + Seek Time + Latency Time 
 
-In an extensive calculation done by Remzi Arpaci-Dusseau and Andrea Arpaci-Dusseau, in the \cite{tbree},
+In an extensive calculation done by Remzi Arpaci-Dusseau and Andrea Arpaci-Dusseau, in the \cite{three},
 two hard drives one Cheetah, and the other being Barracuda was compared for the I/O latency time. The size of
 data being dealt with was 100 MB. However, another controller in the comparison was whether the data reading or writing
 was sequential or random. Sequential meant that large chunks of data are just being read and written which are in
@@ -469,7 +469,7 @@ sequence, whereas the Random transfer just meant Random data was selected from a
 which is how the data for applications work. Mind it that the data we represented in the simulator was also sequential
 and not random, as the hardrive implemented was built of data blocks.
 
-The I/O Latency time along with other statistics mentioned above was (taken from the source \cite{tbree}): 
+The I/O Latency time along with other statistics mentioned above was (taken from the source \cite{three}): 
 
 
 \begin{tabular}{|l|rr|}
@@ -558,7 +558,7 @@ Not all of this information, especially concerning network is that closely relev
 we can certianly see the latencies that included reading, writing and referencing from the CPU caches, memory
 and the drives had a huge difference in between them. The low level operations that took place within the
 CPU were the quickest of all, referencing Caches and branching. Secondly referencing the RAM (7 ns) was slower than
-referencing the the caches (0.5 ns & 7 ns but alot faster that going to a and reading from disk which was almost a
+referencing the the caches (0.5 ns and 7 ns) but alot faster that going to a and reading from disk which was almost a
 20 million times slower than refernecing the L1 Cache and upto a hundred thousand times slower than referencing
 the RAM. 
 
