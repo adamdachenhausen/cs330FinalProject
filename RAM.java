@@ -112,7 +112,7 @@ class RAM extends Thread{
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
-            while(data[index]!=null || data[index].start==true){
+            while(index<data.length && data[index]!=null){
                 //Delete the current block
                 data[index]=null;
 

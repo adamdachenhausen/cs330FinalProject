@@ -89,7 +89,7 @@ class HDD extends Thread{
                     return 1;
                 }
                 //If we got here, that means we don't have a hole big enough, so let's reset count
-                
+
                 count = i;
 
             }
@@ -110,25 +110,25 @@ class HDD extends Thread{
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
         if(data!=null){
-	    if(data[index]!=null){
-		int output = data[index].size;
-            while(index<data.length && data[index]!=null){
-                index++;  
-                
-                try{
-                    sleep(2);
+            if(data[index]!=null){
+                int output = data[index].size;
+                while(index<data.length && data[index]!=null){
+                    index++;  
+
+                    try{
+                        sleep(2);
+                    }
+                    catch(Exception e){
+
+                    }
+
+                    //Now we check the next position if it is a starter, and we can exit
+                    if(data[index]!=null && data[index].start==true){
+                        break;
+                    }
                 }
-                catch(Exception e){
-                    
-                }
-                
-                //Now we check the next position if it is a starter, and we can exit
-                if(data[index]!=null && data[index].start==true){
-                    break;
-                }
+                return output;
             }
-	    return output;
-	    }
         }
         return -1;
     }
@@ -142,13 +142,15 @@ class HDD extends Thread{
         //Loop through the data until we hit a null block or
         //If we have two blocks back-to-back, then the start flag
         //will be high, so we can stop reading our dataBlock
-        while(index<data.length && (data[index]!=null || data[index].start==true)){
-            //Delete the current block
-            data[index] = null;
+        if(data!=null){
+            while(index<data.length && data[index]!=null){
+                //Delete the current block
+                data[index] = null;
 
-            //Then increment and free space
-            index++;
-            spaceLeft+=dataBlock.WIDTH;
+                //Then increment and free space
+                index++;
+                spaceLeft+=dataBlock.WIDTH;
+            }
         }
     }
 

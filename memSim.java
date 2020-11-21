@@ -280,7 +280,6 @@ class memSim extends Thread{
 	    int subSelect2 = -1;
 	    //dataSelects tell us what data to move on the drive
 	    int dataSelect1 = -1;
-	    int dataSelect2 = -1;
 	    
 	    if(userSubSelect1 == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
@@ -327,30 +326,20 @@ class memSim extends Thread{
                 subSelect2 = scnr.nextInt();
 		subSelect2--;
 
-		//Now we have to prompt the user to pick a chunk of data
-		hardDrives[subSelect2].print();
-		System.out.print(yellow+"Please select one of the above partitions: "+reset);
-		dataSelect2 = scnr.nextInt();
-
             }
             else if(userSubSelect2 == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
                 System.out.print(yellow+"Please enter the number of your selection: "+reset);
                 subSelect2= scnr.nextInt();
 		subSelect2--;
-		
-		//Now we have to prompt the user to pick a chunk of data
-		rams[subSelect2].print();
-		System.out.print(yellow+"Please select one of the above partitions: "+reset);
-		dataSelect2 = scnr.nextInt();
 
             }
             else if(userSubSelect2 == 3){
-		dataSelect2 = 1;
+		
             }
 	    
 	    //We make sure that the user didn't try to move from A to A
-	    if(userSubSelect1==userSubSelect2 && dataSelect1==dataSelect2){
+	    if(userSubSelect1==userSubSelect2){
 		System.out.println(red+"Error, you cannot move data from one place to the same place. Please try again"+reset);
 	    }
 	    }
