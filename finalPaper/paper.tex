@@ -411,9 +411,6 @@ size but a different access time.
 \section{Data Gathered}
 \label{sec:data}
 
-
-Insert all the data gathered by the simulator and from sources here.
-
 Latency Time in the all 3 major components being implemented in the simulator vary accordingly to their sizes,
 that becomes the reason why cache is the fastest between RAM and the HDD.
 
@@ -421,9 +418,11 @@ Starting with the hardrive latency time for the input and output of data as it i
 The latency of a hard drive is a combination of it RPM, Seek Time and Transfer time. In the simulator that we
 implemented, we didnt go into details to a point that we offer the RPM, Seek time and the Transfer time as
 a variable to the user. However we implemented the HDD on data blocks instead of platters, which acted as
-partitions.
-According to Eric Shanks from ithollow.com, the following were the Hard Drive latencies in 2013, given the different
-RPM.
+partitions. 
+
+Rotatational latency of a hard drive is how long does it take a platter to spin, as after all it is a mechanical
+component bounded by a certain speed.
+According to Eric Shanks from ithollow.com, the following were the Hard Drive Rotational latencies in 2013.
 
 \begin{tabular}{|c|c|}
   \hline
@@ -456,8 +455,8 @@ After all this we come to an equation:
 
 I/O Latency Time of HDD = Rotational Latency + Seek Time + Latency Time 
 
-In an extensive calculation done by Remzi Arpaci-Dusseau and Andrea Arpaci-Dusseau, in the Operating Systems: Three
-easy peices, two hard drives one Cheetah, and the other being Barracuda was compared for the I/O latency time. The size of
+In an extensive calculation done by Remzi Arpaci-Dusseau and Andrea Arpaci-Dusseau, in the 'Operating Systems: Three
+easy peices', two hard drives one Cheetah, and the other being Barracuda was compared for the I/O latency time. The size of
 data being dealt with was 100 MB. However, another controller in the comparison was whether the data read or writing
 was sequential or random. Sequential meant that large chunks of data are just being read and written which are in
 sequence, whereas the Random transfer just meant Random data was selected from a read issue some where on the disk,
@@ -467,7 +466,7 @@ and not random, as the hardrive implemented was built of data blocks.
 The I/O Latency time along with other statistics mentioned above was (taken from the source): 
 
 
-\begin{tabular}{|l|r|r|}
+\begin{tabular}{|l|rr|}
   \hline
   HDD & Cheetah 15K.5 & Barracuda\\
   \hline
@@ -481,7 +480,7 @@ The I/O Latency time along with other statistics mentioned above was (taken from
   \hline
   T I/O Random & 6 ms & 13.2 ms\\
   \hline
-  T I/O Sequential & 800 ms & 900 ms
+  T I/O Sequential & 800 ms & 900 ms\\
   \hline
 \end {tabular}
 
@@ -490,15 +489,74 @@ The I/O Latency time along with other statistics mentioned above was (taken from
 Now coming to our second component RAM and how the data tranfer works in their and what delays take place.
 RAM is a way smaller storage device compared to HDD and is alsos volatile, but that makes it quicker than
 the HDD. The Latency of data movement in RAM is comprised primarily of CAS latency which translates to
-Column Address strobe or signal latency. Since the RAM is built upon columns or cells of memory,
+Column Address strobe latency. Since the RAM is built upon columns or cells of memory,
 CAS latency means how much time it would take the RAM to access the memory cells, read the data and make it
-available as an output.
+available as an output. And again, in the simulation we were not able to completely configure the design of
+the RAM to this extent however we did implement a RAM on data blocks.
 
+Over the course of Time the latency of RAM has improved, but compared to the bandwidth and capacity it has
+been on the very low side. According to a research done by Kevin Chang from CMU, in his paper 'Understanding
+and Improving the Latency of D-RAM based Memory Systems', in the period of 1999 - 2017, the capacity of
+RAM has increased a gigantic 128 times, where as the Bandwidth of a RAM has increased a good enough 20 times,
+however the improvenement in latency haa only a factor of 1.3x. We can safely assume that the latency of a RAM
+has been consistent compared to the latency of Hard Drive over time or the CPU.
 
+## ##
 
+Compared to the RAM the gap between the CPU latency and the RAM latency has been growing at a high rate. As
+discussed previously the latency of a RAM hasn't had much improvement in the last 3 decades. Sangyeun Cho
+from UPittsburg, comes with the data that considering 2005, the improvement in RAM latency has been less than
+10 times than it was in 1980. However on the other hand the CPU latency has steered up to a performance of
+a whopping 10000 times better in 2005 than it was in 1980.
 
+When we talk about the CPU, we are dealing with the smallest form of major memory in the CPU yet the fastest one.
+As mentioned in the previous section, the CPU consists of caches to save the time to fetch frequent data
+again from the memory. Given that the modern CPUs have 2 levels of cache built in them, we were only able to
+implement a single level on our simulator. The CPU latency is comprised of many factors or sometimes not. That
+depend upon how effecient is cache working. If the CPU cache does not have the data required than the CPU has
+to use the buses to fetch the data from the memory, compromising the bus bandwidth and timing in the process.
+These two different situations can yield a very different latency period.
 
-Explain any terms as needed (only if not already). 
+As of 2012 these were some of the Latencies, that includes different operation on a low level
+and at the high level.(Source: gist/github.com/jboner/2841832)
+
+\begin{tabular}{|l|c|}
+  \hline
+  L1 cache reference & 0.5 ns\\
+  \hline
+  Branch mispredict & 5 ns\\
+  \hline
+  L2 cache reference & 7 ns\\
+  \hline
+  Mutex lock/unclock & 25 ns\\
+  \hline
+  Main memory reference & 100 ns\\
+  \hline
+  Compress 1k bytes with zippy & 3000 ns / 3 us\\
+  \hline
+  Send 1 KB over Gbps network & 10000 ns / 10 us\\
+  \hline
+  Read 4 KB randomly from memory & 150000 ns / 150 us\\
+  \hline
+  Read 1 MB sequentially from memory & 250000 ns / 250 us\\
+  \hline
+  Round trip within same data center & 500000 ns / 500 us\\
+  \hline
+  Read 1 MB sequentially from SSD & 1000 us / 1 ms\\
+  \hline
+  Disk Seek & 10000 us / 10 ms\\
+  \hline
+  Read 1 MB sequentially from the disk & 20000 us / 20 ms\\ 
+  \hline    
+\end {tabular}
+
+Not all of this information, especially concerning network is that closely relevant to our field of study, but
+we can certianly see the latencies that included reading, writing and referencing from the CPU caches, memory
+and the drives had a huge difference in between them. The low level operations that took place within the
+CPU were the quickest of all, referencing Caches and branching. Secondly referencing the RAM (7 ns) was slower than
+referencing the the caches (0.5 ns & 7 ns but alot faster that going to a and reading from disk which was almost a
+20 million times slower than refernecing the L1 Cache and upto a hundred thousand times slower than referencing
+the RAM. 
 
 \section{Discrepancies}
 \label{sec:disc}
@@ -508,7 +566,7 @@ Explain any discrepancies found here.
 \section{Conclusions}
 \label{sec:conclusions}
 
-Insert conclusions here.
+
 
 \singlespace
 \bibliographystyle{abbrv}
@@ -516,8 +574,8 @@ Insert conclusions here.
 www.ithollow.com/2013/11/18/disk-latency-concepts/
 pages.sc.wisc.edu/~remzi/OSFEP/file-disks.pdf
 www.tomshardware.com/reviews/cas-latency-ram-cl-timings-glossary-definition,6011.html
-
-
+research.ece.cmu.edu/safari/thesis/kchang_dissertation.pdf
+people.cs.pitt.edu/~cho/cs1541/current/handouts/lect-memh_4up.pdf
 
 % tell latex we're done.  Anything beyond this line will be ignored.
 \end{document}
