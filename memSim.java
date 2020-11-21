@@ -252,6 +252,9 @@ class memSim extends Thread{
 	    System.out.println(numHDD+" number of hard drives, each "+hDDSize+" bytes big.");
 	    System.out.println(numRAM+" sticks of RAM, each "+rAMSize+" bytes big.");
 	    System.out.println("CPU cache is " + cacheSize + " bytes big.");
+	    System.out.println("Cache delay is:\t"+cacheDelay+"seconds");
+	    System.out.println("RAM delay is:\t"+ramDelay+"seconds");
+	    System.out.println("HDD delay is:\t"+hddDelay+"seconds");
 	    System.out.println(purple+"**********************************"+reset);
 	    System.out.println();
 
