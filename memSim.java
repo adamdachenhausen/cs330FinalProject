@@ -17,6 +17,9 @@ class memSim extends Thread{
     //A flag to tell our components if the system is done running
     public static boolean done;
 
+    //The value of one megabyte
+    public static final int MB = 1000000;
+
     //An array to hold all the hard drives in the system
     HDD[] hardDrives;
 
@@ -53,7 +56,7 @@ class memSim extends Thread{
     /**
     A constructor for the memSim object
      **/
-    public memSim(int numHDD, int hDDSize, int numRam, int rAMSize, int cacheSize){
+    public memSim(int numHDD, int hDDSize, int numRam, int rAMSize, int cacheSize, int cacheDelay, int ramDelay, int hddDelay){
         //First, we need to allow everything to know that we are starting up, aka not done
         done = false;
 
@@ -61,7 +64,7 @@ class memSim extends Thread{
         hardDrives = new HDD[numHDD];
 
         for(int i = 0; i < numHDD; i++){
-            hardDrives[i] = new HDD(hDDSize);
+            hardDrives[i] = new HDD(hDDSize, hddDelay);
             hardDrives[i].start();
         }
 
@@ -69,12 +72,12 @@ class memSim extends Thread{
         rams = new RAM[numRam];
 
         for(int i = 0; i < numRam; i++){
-            rams[i] = new RAM(rAMSize);
+            rams[i] = new RAM(rAMSize, ramDelay);
             rams[i].start();
         }
 
         //Now let's initialize our cacheSize
-        cpu = new CPU(1, cacheSize);
+        cpu = new CPU(1, cacheSize, cacheDelay);
        cpu.start();
     }
 
@@ -145,12 +148,20 @@ class memSim extends Thread{
 	    System.out.println("\t1 Stick of RAM with size: 51200 bytes");
 	    System.out.println("\tCPU Cache size: 2048 bytes");
 	    System.out.println("\tThere is no data written to any of the components in this system.");
+
+	    //Now we let the user know about how the delays are set up
+	    System.out.println("**** Delays ****");
+	    System.out.println("All systems are configured with the following");
+	    System.out.println("CPU cache:\tno delay");
+	    System.out.println("RAM:\tTo read/write 1 MB = 5 secs");
+	    System.out.println("HDD:\tTo read/write 1 MB = 10 secs");
+	    System.out.println("****************");
 	    //Now we prompt the user to load a default system
 	    System.out.print(yellow+"Please enter the number of your selection: "+reset);
 	    int loadSelect = scnr.nextInt();
 	    if(loadSelect == 2){
 		//First initialize an empty memSim
-		memSim finger = new memSim(1,102400,1,51200,2048);
+		memSim finger = new memSim(1,102400,1,51200,2048,0,5,10);
 
 		//Then write the specified data
 		for(int i=0;i<10;i++){
@@ -168,14 +179,14 @@ class memSim extends Thread{
 		return finger;
 	    }
 	    else if(loadSelect == 3){
-		return new memSim(1024000,1024000,1,51200,2048);
+		return new memSim(1024000,1024000,1,51200,2048,0,5,10);
 	    }
 	    else{
 		//If we didn't understand, but the user wants to load, then we will load 1,
 		//or if the user just wants to load 1
 
 		//First initialize an empty memSim
-		memSim finger = new memSim(2,10240,2,51200,1024);
+		memSim finger = new memSim(2,10240,2,51200,1024,0,5,10);
 
 		//Then write the specified data
 		for(int i=0;i<3;i++){
@@ -219,9 +230,21 @@ class memSim extends Thread{
 	    input = scnr.nextLine();
 	    int rAMSize = Integer.parseInt(input);
 	    
-	    System.out.println("Finally, how big (in bytes) would you like your CPU cache to be?");
+	    System.out.println("How big (in bytes) would you like your CPU cache to be?");
 	    input = scnr.nextLine();
 	    int cacheSize = Integer.parseInt(input);
+
+	    System.out.println("How long would you like it to take in seconds, to read/write to the cache?");
+	    input = scnr.nextLine();
+	    int cacheDelay = Integer.parseInt(input);
+
+	    System.out.println("How long would you like it to take in seconds, to read/write to the RAM?");
+	    input = scnr.nextLine();
+	    int ramDelay = Integer.parseInt(input);
+
+	    System.out.println("Finally, how long would you like it to take in seconds, to read/write to a HDD?");
+	    input = scnr.nextLine();
+	    int hddDelay = Integer.parseInt(input);
 	    
 	    //Let's print the system config
 	    System.out.println();
@@ -229,12 +252,15 @@ class memSim extends Thread{
 	    System.out.println(numHDD+" number of hard drives, each "+hDDSize+" bytes big.");
 	    System.out.println(numRAM+" sticks of RAM, each "+rAMSize+" bytes big.");
 	    System.out.println("CPU cache is " + cacheSize + " bytes big.");
+	    System.out.println("Cache delay is:\t"+cacheDelay+"seconds");
+	    System.out.println("RAM delay is:\t"+ramDelay+"seconds");
+	    System.out.println("HDD delay is:\t"+hddDelay+"seconds");
 	    System.out.println(purple+"**********************************"+reset);
 	    System.out.println();
 
 	
 	    //And finally initialize the system
-	    return new memSim(numHDD,hDDSize,numRAM,rAMSize,cacheSize);
+	    return new memSim(numHDD,hDDSize,numRAM,rAMSize,cacheSize,cacheDelay,ramDelay,hddDelay);
 	}
     }
 
@@ -272,19 +298,23 @@ class memSim extends Thread{
             System.out.println("3.\tCPU Cache");
             System.out.print(yellow+"Please enter the number of your selection: "+reset);
 
+	    //userSubSelects tell us what component to access
             int userSubSelect1 = scnr.nextInt();
 	    int userSubSelect2 = userSubSelect1;
+	    //subSelects tell us which number of that component type
+	    int subSelect1 = -1;
+	    int subSelect2 = -1;
+	    //dataSelects tell us what data to move on the drive
 	    int dataSelect1 = -1;
-	    int dataSelect2 = -1;
-
+	    
 	    if(userSubSelect1 == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
                 System.out.print(yellow+"Please enter the number of your selection: "+reset);
-                int hddSelect = scnr.nextInt();
-		hddSelect--;
+                subSelect1 = scnr.nextInt();
+		subSelect1--;
 
 		//Now we have to prompt the user to pick a chunk of data
-		hardDrives[hddSelect].print();
+		hardDrives[subSelect1].print();
 		System.out.print(yellow+"Please select one of the above partitions: "+reset);
 		dataSelect1 = scnr.nextInt();
 
@@ -292,17 +322,18 @@ class memSim extends Thread{
             else if(userSubSelect1 == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
                 System.out.print(yellow+"Please enter the number of your selection: "+reset);
-                int ramSelect = scnr.nextInt();
-		ramSelect--;
+                subSelect1 = scnr.nextInt();
+		subSelect1--;
 		
 		//Now we have to prompt the user to pick a chunk of data
-		rams[ramSelect].print();
+		rams[subSelect1].print();
 		System.out.print(yellow+"Please select one of the above partitions: "+reset);
 		dataSelect1 = scnr.nextInt();
 
             }
             else if(userSubSelect1 == 3){
 		dataSelect1 = 1;
+		
             }
 	    
 	    //Now we prompt where the user wants to put this data
@@ -318,40 +349,63 @@ class memSim extends Thread{
 	    if(userSubSelect2 == 1){
                 System.out.println("Please choose a drive from 1 - " + hardDrives.length);
                 System.out.print(yellow+"Please enter the number of your selection: "+reset);
-                int hddSelect = scnr.nextInt();
-		hddSelect--;
-
-		//Now we have to prompt the user to pick a chunk of data
-		hardDrives[hddSelect].print();
-		System.out.print(yellow+"Please select one of the above partitions: "+reset);
-		dataSelect2 = scnr.nextInt();
+                subSelect2 = scnr.nextInt();
+		subSelect2--;
 
             }
             else if(userSubSelect2 == 2){
                 System.out.println("Please choose a stick of ram from 1 - " + rams.length);
                 System.out.print(yellow+"Please enter the number of your selection: "+reset);
-                int ramSelect = scnr.nextInt();
-		ramSelect--;
-		
-		//Now we have to prompt the user to pick a chunk of data
-		rams[ramSelect].print();
-		System.out.print(yellow+"Please select one of the above partitions: "+reset);
-		dataSelect2 = scnr.nextInt();
+                subSelect2= scnr.nextInt();
+		subSelect2--;
 
             }
             else if(userSubSelect2 == 3){
-		dataSelect2 = 1;
+		
             }
 	    
 	    //We make sure that the user didn't try to move from A to A
-	    if(userSubSelect1==userSubSelect2 && dataSelect1==dataSelect2){
+	    if(userSubSelect1==userSubSelect2){
 		System.out.println(red+"Error, you cannot move data from one place to the same place. Please try again"+reset);
 	    }
 	    }
 	    
             start = System.currentTimeMillis();
             //Here we are going to process where the user wants to move the data from and to
-	    
+
+	    //tempData is used to hold how many bytes were read, so we can write them somewhere else
+	    int tempData = 0;
+	    //We first determine which to access,
+	    //then read, delete
+	    if(userSubSelect1 == 1){
+		//Hard Drive
+		tempData = hardDrives[subSelect1].read(dataSelect1);
+		hardDrives[subSelect1].delete(dataSelect1);
+	    }
+	    else if(userSubSelect1 == 2){
+		//RAM
+		tempData = rams[subSelect1].read(dataSelect1);
+		rams[subSelect1].read(dataSelect1);
+	    }
+	    else{
+		//CPU
+		tempData = cpu.read();
+		cpu.delete(tempData);
+	    } 
+	    //Then we determine where to write to
+	    //and then we write the same number of bytes to the specified component
+	    if(userSubSelect2 == 1){
+		//Hard Drive
+		hardDrives[subSelect2].write(tempData);
+	    }
+	    else if(userSubSelect2 == 2){
+		//RAM
+		rams[subSelect2].write(tempData);
+	    }
+	    else{
+		//CPU
+		cpu.write(tempData);
+	    } 
 	    
             //Then we can report the statistics
             end = System.currentTimeMillis();
@@ -422,7 +476,7 @@ class memSim extends Thread{
                 start = System.currentTimeMillis();
 
                 //We don't need this return value for anything, we just need memSim to wait
-                byte[] x = cpu.read();
+		int x = cpu.read();
 
                 //Then we can report the statistics
                 end = System.currentTimeMillis();
@@ -489,7 +543,7 @@ class memSim extends Thread{
 		System.out.print(yellow+"How many bytes would you like to write?"+reset);
 		int in = scnr.nextInt();
 
-		cpu.write(new byte[in]);
+		cpu.write(in);
 		
                 //Then we can report the statistics
                 end = System.currentTimeMillis();

@@ -14,15 +14,20 @@ class CPU extends Thread{
     
     //THe size of the first cache
     int cache1Size;
+
+    //The time it takes to write 1 MB
+    int delay;
     /**
        Constructor for the CPU class
        @param numCores the number of cores that this should have (currently not supported)
        @param cacheSize the size of the cache of this
+       @param cacheDelay, the time it takes for this to write 1 MB
      **/
-    public CPU(int numCores, int cacheSize){
+    public CPU(int numCores, int cacheSize, int cacheDelay){
      cores = numCores;
      cache1 = new byte[cacheSize];
      cache1Size = cacheSize;
+     delay = cacheDelay;
      cache1Last = -1; //We hold the index of the last item in the array
     }
     /**
@@ -31,10 +36,14 @@ class CPU extends Thread{
        there should be no delay as this is stored on RAM, and the cache
        in a real system will be much faster
 
-       @return the data read in a byte array
+       @return the size of the cache read
      **/
-    public byte[] read(){
-	return cache1;
+    public int read(){
+	try{
+	    sleep(delay*(cache1Size/memSim.MB));
+	}
+	catch(Exception e){}
+	return cache1Size;
     }
     /**
        Writes input into the cache.
@@ -44,12 +53,16 @@ class CPU extends Thread{
        There will also not be any delay (other than overhead) as these are the
        fastest memory locations.
 
-       @param input the data to be written to the cache
+       @param numBytes, the number of bytes to be written to the cache
        @return 1 if the method is done, 0 if error occurs
      **/
-    public int write(byte[] input){
-	for(int i = 0; i<input.length;i++){
-	    add(input[i]);
+    public int write(int numBytes){
+	try{
+	    sleep(delay*(cache1Size/memSim.MB));
+	}
+	catch(Exception e){}
+	for(int i = 0; i<numBytes;i++){
+	    add((byte)0);
 	}
 	return 1;
     }
@@ -77,6 +90,10 @@ class CPU extends Thread{
 	for(int i=0; i<numBytes;i++){
 	    cache1Last++;
 	}
+	try{
+	    sleep(delay*(cache1Size/memSim.MB));
+	}
+	catch(Exception e){}
     }
     /**
 
