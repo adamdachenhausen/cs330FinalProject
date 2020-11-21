@@ -17,6 +17,9 @@ class memSim extends Thread{
     //A flag to tell our components if the system is done running
     public static boolean done;
 
+    //The value of one megabyte
+    public static final int MB = 1000000;
+
     //An array to hold all the hard drives in the system
     HDD[] hardDrives;
 
@@ -53,7 +56,7 @@ class memSim extends Thread{
     /**
     A constructor for the memSim object
      **/
-    public memSim(int numHDD, int hDDSize, int numRam, int rAMSize, int cacheSize){
+    public memSim(int numHDD, int hDDSize, int numRam, int rAMSize, int cacheSize, int cacheDelay, int ramDelay, int hddDelay){
         //First, we need to allow everything to know that we are starting up, aka not done
         done = false;
 
@@ -61,7 +64,7 @@ class memSim extends Thread{
         hardDrives = new HDD[numHDD];
 
         for(int i = 0; i < numHDD; i++){
-            hardDrives[i] = new HDD(hDDSize);
+            hardDrives[i] = new HDD(hDDSize, hddDelay);
             hardDrives[i].start();
         }
 
@@ -69,12 +72,12 @@ class memSim extends Thread{
         rams = new RAM[numRam];
 
         for(int i = 0; i < numRam; i++){
-            rams[i] = new RAM(rAMSize);
+            rams[i] = new RAM(rAMSize, ramDelay);
             rams[i].start();
         }
 
         //Now let's initialize our cacheSize
-        cpu = new CPU(1, cacheSize);
+        cpu = new CPU(1, cacheSize, cacheDelay);
        cpu.start();
     }
 
@@ -145,12 +148,20 @@ class memSim extends Thread{
 	    System.out.println("\t1 Stick of RAM with size: 51200 bytes");
 	    System.out.println("\tCPU Cache size: 2048 bytes");
 	    System.out.println("\tThere is no data written to any of the components in this system.");
+
+	    //Now we let the user know about how the delays are set up
+	    System.out.println("**** Delays ****");
+	    System.out.println("All systems are configured with the following");
+	    System.out.println("CPU cache:\tno delay");
+	    System.out.println("RAM:\tTo read/write 1 MB = 5 secs");
+	    System.out.println("HDD:\tTo read/write 1 MB = 10 secs");
+	    System.out.println("****************");
 	    //Now we prompt the user to load a default system
 	    System.out.print(yellow+"Please enter the number of your selection: "+reset);
 	    int loadSelect = scnr.nextInt();
 	    if(loadSelect == 2){
 		//First initialize an empty memSim
-		memSim finger = new memSim(1,102400,1,51200,2048);
+		memSim finger = new memSim(1,102400,1,51200,2048,0,5,10);
 
 		//Then write the specified data
 		for(int i=0;i<10;i++){
@@ -168,14 +179,14 @@ class memSim extends Thread{
 		return finger;
 	    }
 	    else if(loadSelect == 3){
-		return new memSim(1024000,1024000,1,51200,2048);
+		return new memSim(1024000,1024000,1,51200,2048,0,5,10);
 	    }
 	    else{
 		//If we didn't understand, but the user wants to load, then we will load 1,
 		//or if the user just wants to load 1
 
 		//First initialize an empty memSim
-		memSim finger = new memSim(2,10240,2,51200,1024);
+		memSim finger = new memSim(2,10240,2,51200,1024,0,5,10);
 
 		//Then write the specified data
 		for(int i=0;i<3;i++){
@@ -219,9 +230,21 @@ class memSim extends Thread{
 	    input = scnr.nextLine();
 	    int rAMSize = Integer.parseInt(input);
 	    
-	    System.out.println("Finally, how big (in bytes) would you like your CPU cache to be?");
+	    System.out.println("How big (in bytes) would you like your CPU cache to be?");
 	    input = scnr.nextLine();
 	    int cacheSize = Integer.parseInt(input);
+
+	    System.out.println("");
+	    input = scnr.nextLine();
+	    int cacheDelay = Integer.parseInt(input);
+
+	    System.out.println("");
+	    input = scnr.nextLine();
+	    int ramDelay = Integer.parseInt(input);
+
+	    System.out.println("Finally, ");
+	    input = scnr.nextLine();
+	    int hddDelay = Integer.parseInt(input);
 	    
 	    //Let's print the system config
 	    System.out.println();
@@ -234,7 +257,7 @@ class memSim extends Thread{
 
 	
 	    //And finally initialize the system
-	    return new memSim(numHDD,hDDSize,numRAM,rAMSize,cacheSize);
+	    return new memSim(numHDD,hDDSize,numRAM,rAMSize,cacheSize,cacheDelay,ramDelay,hddDelay);
 	}
     }
 
