@@ -150,11 +150,10 @@ Java installed to run it. See \url{https://www.java.com/en/download/}
  for more.
 
 \subsection{Acquiring Source Code}
-To download the simulator code, go to \url{osfinal.dachenhausen.org} 
-or
-\url{https://github.com/adamdachenhausen/cs330FinalProject} 
-and clone the repository. See \url{https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository}
-for more.
+To download the simulator code, go to \url{osfinal.dachenhausen.org}
+or \url{https://github.com/adamdachenhausen/cs330FinalProject} and clone the repository.
+See \url{https:docs.github.com/en/free-pro-team@latest/github/
+creating-cloning-and-archiving-repositories/cloning-a-repository} for more.
 
 \subsection{Compiling}
 \begin{itemize}
@@ -185,9 +184,11 @@ project is protected under the MIT License, so proceed at your own risk.
 \begin{itemize}
 \item \textbf{Command Line}
   Either way that the simulator was compiled, the command
+{\singlespace
 \begin{verbatim}
   java memSim
 \end{verbatim}
+}
   will start the simulator
 \item \textbf{IDE}
   Given the multitude of IDEs that are available, please see your
@@ -201,10 +202,11 @@ The first thing the simulator will ask you is
 \begin{verbatim}
 Is this text blue? Y/n
 \end{verbatim}
+}
 If your terminal supports ANSI colored text, then the question should be blue,
 and you should respond Y. This helps point out important data.
 If your terminal does not support the colored text, then you will see something like
-{\singlespace
+
 \begin{verbatim}
 [34mIs this text blue? [0m Y/n
 \end{verbatim}
@@ -233,13 +235,17 @@ And how big (in bytes) should each one be?
 512
 How big (in bytes) would you like your CPU cache to be?
 32
-How long would you like it to take in seconds, to read/write to the cache?
+How long would you like it to take in seconds,
+ to read/write to the cache?
 0
-How long would you like it to take in seconds, to read/write to the RAM?
+How long would you like it to take in seconds,
+ to read/write to the RAM?
 5
-Finally, how long would you like it to take in seconds, to read/write to a HDD?
+Finally, how long would you like it to 
+take in seconds, to read/write to a HDD?
 10
-
+\end{verbatim}
+\begin{verbatim}
 ***********System Config**********
 1 number of hard drives, each 1024 bytes big.
 1 sticks of RAM, each 512 bytes big.
@@ -481,11 +487,11 @@ The I/O Latency time along with other statistics mentioned above was (taken from
   \hline
   T I/O Random & 6 ms & 13.2 ms\\
   \hline
-  T I/O Sequential & 800 ms & 900 ms
+  T I/O Sequential & 800 ms & 900 ms\\
   \hline
 \end {tabular}
 
-## In our simulation ##
+\subsection*{In our simulation}
 
 Now coming to our second component RAM and how the data tranfer works in their and what delays take place.
 RAM is a way smaller storage device compared to HDD and is alsos volatile, but that makes it quicker than
