@@ -77,7 +77,16 @@ Loudonville, NY  12211
 % Abstract!
 \begin{abstract}
 
-Insert abstract here.
+The Java Based Memory Latency Simulator was developed to provide a way to
+study how long it takes to move bytes of data around a common computer
+system containing hard drive disks, random access memory, and a central
+processing unit with cache memory. This project aims first to create a modular
+system, that could be used to simulate data movement computer components, then
+second to use that simulator and upgrade it to allow data to be collected about
+data latency. We first focused on creating data structures that represented various
+components of the computer, like a hard drive disk. Then we created a dual purpose
+structure that both holds these components and interacts with the user. For this project,
+we gathered data about the memory latency as an example of the modularity of the simulator.
   
 \end{abstract}
 
@@ -92,14 +101,15 @@ Insert abstract here.
 \label{sec:overview}
 
 The goal of this project was to create a computer memory latency simulator. 
-For its ease of use, Java was chosen to program this project in. This 
-simulator is designed to simulate data transfer from one system component 
+Java was chosen as the programming language for this project for its ease of use and
+it is what we, the authors are most comfortable with.
+This simulator is designed to simulate data transfer from one system component 
 to another. For example, from the hard drive disk, to the main memory. 
 
 In Section~\ref{sec:memlate} we discuss abstractly how the memory latency 
 simulator works, and why we built it. Section~\ref{sec:build} describes
 how to build and run the simulator. In section~\ref{sec:expstats} we explain
-all the types of  information collected from the simulator. Then, in section~\ref{sec:data}
+all the types of information collected from the simulator. Then, in section~\ref{sec:data}
 we present the actual data collected from the simulator, as well as actual 
 real world data. Section~\ref{sec:disc} goes on to explain any discrepancies 
 found between our data and the real world collected data. Finally, in~\ref{sec:conclusions}
