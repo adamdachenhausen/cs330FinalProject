@@ -450,8 +450,8 @@ the read write arm starts to move, then comes the coasting phase when the arm is
 is followed by the deceleration phase where the read write arm slows down. Then finally comes the
 settling phase as the read write head stops right at the data it needs.
 The average seek time of hardrives of size 300 GB to 1TB ranged from an average time of 4ms to 9ms.
-(source: pages.cs.wisc.edu - Operating Systems: Three Easy peices peices - Remzi Arpaci, Andrea Arpaci).
-(source: \cite }
+(source: \cite{tbree} )
+
 The last part of total I/O latency for hard drive is the transfer time, which is the time it takes the
 data to be transfer from or to the Read-Write head. Compared to Rotational Latency and seek time, transfer
 time is insignificant, given that the mechanical movements take more time than data movement which is more of
@@ -461,15 +461,15 @@ After all this we come to an equation:
 
 I/O Latency Time of HDD = Rotational Latency + Seek Time + Latency Time 
 
-In an extensive calculation done by Remzi Arpaci-Dusseau and Andrea Arpaci-Dusseau, in the 'Operating Systems: Three
-easy peices', two hard drives one Cheetah, and the other being Barracuda was compared for the I/O latency time. The size of
-data being dealt with was 100 MB. However, another controller in the comparison was whether the data read or writing
+In an extensive calculation done by Remzi Arpaci-Dusseau and Andrea Arpaci-Dusseau, in the \cite{tbree},
+two hard drives one Cheetah, and the other being Barracuda was compared for the I/O latency time. The size of
+data being dealt with was 100 MB. However, another controller in the comparison was whether the data reading or writing
 was sequential or random. Sequential meant that large chunks of data are just being read and written which are in
 sequence, whereas the Random transfer just meant Random data was selected from a read issue some where on the disk,
 which is how the data for applications work. Mind it that the data we represented in the simulator was also sequential
 and not random, as the hardrive implemented was built of data blocks.
 
-The I/O Latency time along with other statistics mentioned above was (taken from the source): 
+The I/O Latency time along with other statistics mentioned above was (taken from the source \cite{tbree}): 
 
 
 \begin{tabular}{|l|rr|}
@@ -502,12 +502,10 @@ the RAM to this extent however we did implement a RAM on data blocks.
 
 Over the course of Time the latency of RAM has improved, but compared to the bandwidth and capacity it has
 been on the very low side. According to a research done by Kevin Chang from CMU, in his paper 'Understanding
-and Improving the Latency of D-RAM based Memory Systems', in the period of 1999 - 2017, the capacity of
-RAM has increased a gigantic 128 times, where as the Bandwidth of a RAM has increased a good enough 20 times,
-however the improvenement in latency haa only a factor of 1.3x. We can safely assume that the latency of a RAM
-has been consistent compared to the latency of Hard Drive over time or the CPU.
-
-## ##
+and Improving the Latency of D-RAM based Memory Systems'(\cite {DRAMTimings}) in the period of 1999 - 2017,
+the capacity of RAM has increased a gigantic 128 times, where as the Bandwidth of a RAM has increased a
+good enough 20 times, however the improvenement in latency had  only a factor of 1.3x. We can safely assume
+that the latency of a RAM has been consistent compared to the latency of Hard Drive over time or the CPU.
 
 Compared to the RAM the gap between the CPU latency and the RAM latency has been growing at a high rate. As
 discussed previously the latency of a RAM hasn't had much improvement in the last 3 decades. Sangyeun Cho
@@ -524,7 +522,7 @@ to use the buses to fetch the data from the memory, compromising the bus bandwid
 These two different situations can yield a very different latency period.
 
 As of 2012 these were some of the Latencies, that includes different operation on a low level
-and at the high level.(Source: }
+and at the high level.(Source: \cite {Latencies})
 
 \begin{tabular}{|l|c|}
   \hline
@@ -567,14 +565,40 @@ the RAM.
 \section{Discrepancies}
 \label{sec:disc}
 
-Explain any discrepancies found here.
-
-\section{Conclusions}
-\label{sec:conclusions}
-
 The goal of the project was to find out about the varying latencies of some of the major components of the CPU, with
 or without the simulator. By implementing a simulator good enough to differentiate and manage data we were able to
-find out more about the 
+find out more about the memory management in an environment ran by threads. However, since there exists some complex
+and deep details and components in the real world units that we represented, we were only able to implement as much
+as the basic level of each component.
+The real world data that we represented made up most of our information in the paper, but that was along with the
+fact that the data we imported, was a combination of several different projects and researchs.
+Starting from the hard drive we did not represent the sectors, platters and other mechanical components, instead
+we implemented the HDD using data blocks, thus we were only able to gather stats for a sequential read and write.
+A similar implementation of RAM meant that we did not explicitly render the memory cells in the RAM but only the
+data blocks which act as those cells.
+For the CPU we only represented a single level of cache a L1, while almost all the modern CPUS work on dual level
+of cache.
+Being programmed in java our simulator was bounded by the high level barrier, so to represent the low
+level of memory management, we did have to implement delays ourselves. Our delays were then rationalized according
+to the time it takes in the low level. 
+A lot that was not gathered through the simulator, a deep analysis of sources did cover for that. Especially getting
+to know the latencies of new combinations of components that we did not implement in out simulator helped us to a
+more realistic approach. The research itself was based upon a latency simulator with a concentration on what makes
+up the delays in a real world programming system. 
+
+
+\section{Conclusions} 
+
+\label{sec:conclusions}
+
+Memory Management within a memory system is a complex set of organizations of several different peices, which
+themselves are a set of several different elements. So if we are to study the time delays as a superset of
+memory latencies, we cannot just discuss the general latencies of each component seperately. But one must
+realize that the components are very closely linked with each other. An example of this would be that if a
+a CPU references either  cache and it hits, that would be an ideal situation for the a real model, but if does
+not find what it needs then it has to ref the memory or eventually the Disks, resulting in so many differnt
+factors for delays, including but not only, the CAS latency of the RAM, the HDD I/O latency, which further
+includes the delays of rotation, read write head, settling time etc.
 
 
 \singlespace
