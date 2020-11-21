@@ -428,7 +428,7 @@ partitions.
 
 Rotatational latency of a hard drive is how long does it take a platter to spin, as after all it is a mechanical
 component bounded by a certain speed.
-According to Eric Shanks from ithollow.com, the following were the Hard Drive Rotational latencies in 2013.
+According to \cite(1) Eric Shanks from ithollow.com, the following were the Hard Drive Rotational latencies in 2013.
 
 \begin{tabular}{|c|c|}
   \hline
@@ -451,7 +451,7 @@ is followed by the deceleration phase where the read write arm slows down. Then 
 settling phase as the read write head stops right at the data it needs.
 The average seek time of hardrives of size 300 GB to 1TB ranged from an average time of 4ms to 9ms.
 (source: pages.cs.wisc.edu - Operating Systems: Three Easy peices peices - Remzi Arpaci, Andrea Arpaci).
-
+(source: \cite }
 The last part of total I/O latency for hard drive is the transfer time, which is the time it takes the
 data to be transfer from or to the Read-Write head. Compared to Rotational Latency and seek time, transfer
 time is insignificant, given that the mechanical movements take more time than data movement which is more of
@@ -524,7 +524,7 @@ to use the buses to fetch the data from the memory, compromising the bus bandwid
 These two different situations can yield a very different latency period.
 
 As of 2012 these were some of the Latencies, that includes different operation on a low level
-and at the high level.(Source: gist/github.com/jboner/2841832)
+and at the high level.(Source: }
 
 \begin{tabular}{|l|c|}
   \hline
@@ -572,16 +572,14 @@ Explain any discrepancies found here.
 \section{Conclusions}
 \label{sec:conclusions}
 
+The goal of the project was to find out about the varying latencies of some of the major components of the CPU, with
+or without the simulator. By implementing a simulator good enough to differentiate and manage data we were able to
+find out more about the 
 
 
 \singlespace
 \bibliographystyle{abbrv}
 \bibliography{references}
-www.ithollow.com/2013/11/18/disk-latency-concepts/
-pages.sc.wisc.edu/~remzi/OSFEP/file-disks.pdf
-www.tomshardware.com/reviews/cas-latency-ram-cl-timings-glossary-definition,6011.html
-research.ece.cmu.edu/safari/thesis/kchang_dissertation.pdf
-people.cs.pitt.edu/~cho/cs1541/current/handouts/lect-memh_4up.pdf
 
 % tell latex we're done.  Anything beyond this line will be ignored.
 \end{document}
