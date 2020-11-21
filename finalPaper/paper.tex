@@ -228,11 +228,26 @@ How many Hard Drives would you like?
 And how big (in bytes) should each one be?
 1024
 How many RAM sticks would you like?
-2
+1
 And how big (in bytes) should each one be?
-128
-Finally, how big (in bytes) would you like your CPU cache to be?
+512
+How big (in bytes) would you like your CPU cache to be?
 32
+How long would you like it to take in seconds, to read/write to the cache?
+0
+How long would you like it to take in seconds, to read/write to the RAM?
+5
+Finally, how long would you like it to take in seconds, to read/write to a HDD?
+10
+
+***********System Config**********
+1 number of hard drives, each 1024 bytes big.
+1 sticks of RAM, each 512 bytes big.
+CPU cache is 32 bytes big.
+Cache delay is: 0seconds
+RAM delay is:   5seconds
+HDD delay is:   10seconds
+**********************************
 \end{verbatim}
 }
 After setting up the simulator, the components will each start up, and
@@ -240,17 +255,14 @@ you will be prompted to choose an option from the menu. You can choose to either
 select based on the menu number, or the name.
 {\singlespace
 \begin{verbatim}
-Java Based Memory Latency Simulator
-Developed by Pat Baumgardner, Adam Dachenhausen, Shah Syed
-Supported commands:
-move
-read
-write
-delete
-help
-exit
-For help with a specific command type [command]
-Type 'q' to quit the help menu
+Please enter the number of your selection: 1
+What would you like to do next?
+1.      Move Data
+2.      Read Data
+3.      Write Data
+4.      Delete Data
+5.      Help
+6.      Exit
 \end{verbatim}
 }
 
