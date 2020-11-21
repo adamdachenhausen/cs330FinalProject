@@ -338,7 +338,7 @@ class memSim extends Thread{
 	    
 	    //Now we prompt where the user wants to put this data
 	    while(userSubSelect1 == userSubSelect2){
-	    System.out.println("Where would you like to read the data from?");
+	    System.out.println("Where would you like to write the data to?");
 	    System.out.println("1.\tHard Drive");
             System.out.println("2.\tRAM");
             System.out.println("3.\tCPU Cache");
