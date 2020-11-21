@@ -567,6 +567,18 @@ referencing the the caches (0.5 ns and 7 ns) but alot faster that going to a and
 20 million times slower than referencing the L1 Cache and up to a hundred thousand times slower than referencing
 the RAM. 
 
+In the simulation where we computed the actual data, we came up with the following statistics:
+Moving a data block from RAM to HDD takes 0 ms
+Moving a data block from HDD to RAM takes 1 ms
+Moving a data block from CPU cache to the RAM is 1 ms
+Moving a data block from Cache to HDD takes 0 ms
+Reading the HDD takes 10 ms
+Reading from the RAM is 2.7 s
+Reading from the cache is 0 ms
+Writing to the HDD is 1817 ms
+Writing to the RAM is 1328 ms
+Writing to Cache is 0
+
 \section{Discrepancies}
 \label{sec:disc}
 
@@ -585,7 +597,9 @@ For the CPU we only represented a single level of cache a L1, while almost all t
 of cache.
 Being programmed in java our simulator was bounded by the high level barrier, so to represent the low
 level of memory management, we did have to implement delays ourselves. Our delays were then rationalized according
-to the time it takes in the low level. 
+to the time it takes in the low level.
+Due to the limitations of java, we ran into some issues with our delays that caused the RAM only to be accessed at
+a very longed latency, which was the only major error in our simulator
 A lot that was not gathered through the simulator, a deep analysis of sources did cover for that. Especially getting
 to know the latencies of new combinations of components that we did not implement in out simulator helped us to a
 more realistic approach. The research itself was based upon a latency simulator with a concentration on what makes
@@ -604,6 +618,8 @@ a CPU references either  cache and it hits, that would be an ideal situation for
 not find what it needs then it has to ref the memory or eventually the Disks, resulting in so many different
 factors for delays, including but not only, the CAS latency of the RAM, the HDD I/O latency, which further
 includes the delays of rotation, read write head, settling time etc.
+We found out that after the research that  our simulator which based upon a simple memory system, could not
+keep up with a modern memory system, which included tonnes of elements to care about.
 
 
 \singlespace
