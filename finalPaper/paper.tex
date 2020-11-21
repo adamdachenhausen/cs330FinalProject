@@ -430,7 +430,7 @@ partitions.
 Rotatational latency of a hard drive is how long does it take a platter to spin, as after all it is a mechanical
 component bounded by a certain speed.
 According to \cite{diskLatency} 
-\\
+
 \begin{tabular}{|c|c|}
   \hline
   RPMs & Rotational Latency(ms)\\
@@ -444,7 +444,7 @@ According to \cite{diskLatency}
   15000 & 4 ms\\
   \hline
 \end {tabular}
-\\
+
 Seek time; which is the time it takes for the Read-Write to move up and down the platter.
 The Seek time itself is comprised of a series of phase times. The first being the acceleration phase,
 the read write arm starts to move, then comes the coasting phase when the arm is moving at full speed. This
@@ -472,7 +472,7 @@ and not random, as the hardrive implemented was built of data blocks.
 
 The I/O Latency time along with other statistics mentioned above was (taken from the source \cite{three}): 
 
-\\
+
 \begin{tabular}{|l|rr|}
   \hline
   HDD & Cheetah 15K.5 & Barracuda\\
@@ -490,7 +490,7 @@ The I/O Latency time along with other statistics mentioned above was (taken from
   T I/O Sequential & 800 ms & 900 ms\\
   \hline
 \end {tabular}
-\\
+
 \subsection*{In our simulation}
 
 Now coming to our second component RAM and how the data tranfer works in their and what delays take place.
@@ -524,7 +524,7 @@ These two different situations can yield a very different latency period.
 
 As of 2012 these were some of the Latencies, that includes different operation on a low level
 and at the high level.(Source: \cite {Latencies})
-\\
+
 \begin{tabular}{|l|c|}
   \hline
   L1 cache reference & 0.5 ns\\
@@ -554,13 +554,13 @@ and at the high level.(Source: \cite {Latencies})
   Read 1 MB sequentially from the disk & 20000 us / 20 ms\\ 
   \hline    
 \end {tabular}
-\\
+
 Not all of this information, especially concerning network is that closely relevant to our field of study, but
 we can certianly see the latencies that included reading, writing and referencing from the CPU caches, memory
 and the drives had a huge difference in between them. The low level operations that took place within the
 CPU were the quickest of all, referencing Caches and branching. Secondly referencing the RAM (7 ns) was slower than
 referencing the the caches (0.5 ns and 7 ns) but alot faster that going to a and reading from disk which was almost a
-20 million times slower than refernecing the L1 Cache and upto a hundred thousand times slower than referencing
+20 million times slower than referencing the L1 Cache and upto a hundred thousand times slower than referencing
 the RAM. 
 
 \section{Discrepancies}
@@ -572,12 +572,12 @@ find out more about the memory management in an environment ran by threads. Howe
 and deep details and components in the real world units that we represented, we were only able to implement as much
 as the basic level of each component.
 The real world data that we represented made up most of our information in the paper, but that was along with the
-fact that the data we imported, was a combination of several different projects and researchs.
+fact that the data we imported, was a combination of research and several different projects.
 Starting from the hard drive we did not represent the sectors, platters and other mechanical components, instead
 we implemented the HDD using data blocks, thus we were only able to gather stats for a sequential read and write.
 A similar implementation of RAM meant that we did not explicitly render the memory cells in the RAM but only the
 data blocks which act as those cells.
-For the CPU we only represented a single level of cache a L1, while almost all the modern CPUS work on dual level
+For the CPU we only represented a single level of cache a L1, while almost all the modern CPUs work on dual level
 of cache.
 Being programmed in java our simulator was bounded by the high level barrier, so to represent the low
 level of memory management, we did have to implement delays ourselves. Our delays were then rationalized according
@@ -592,12 +592,12 @@ up the delays in a real world programming system.
 
 \label{sec:conclusions}
 
-Memory Management within a memory system is a complex set of organizations of several different peices, which
+Memory Management within a memory system is a complex set of organizations of several different pieces, which
 themselves are a set of several different elements. So if we are to study the time delays as a superset of
-memory latencies, we cannot just discuss the general latencies of each component seperately. But one must
+memory latencies, we cannot just discuss the general latencies of each component separately. But one must
 realize that the components are very closely linked with each other. An example of this would be that if a
 a CPU references either  cache and it hits, that would be an ideal situation for the a real model, but if does
-not find what it needs then it has to ref the memory or eventually the Disks, resulting in so many differnt
+not find what it needs then it has to ref the memory or eventually the Disks, resulting in so many different
 factors for delays, including but not only, the CAS latency of the RAM, the HDD I/O latency, which further
 includes the delays of rotation, read write head, settling time etc.
 
